@@ -79,9 +79,10 @@ namespace GameSample
             }
 
             m_GlobalCommands = new List<Command>();
-            m_GlobalCommands.Add(new Command("我的信息", "Info", "I", DoShowInfo));
+            m_GlobalCommands.Add(new Command("查看", "Look", "L", DoShowInfo));
+
             m_GlobalCommands.Add(new Command("保存游戏", "Save", "S", DoSaveGame));
-            m_GlobalCommands.Add(new Command("退出", "Exit", "X", DoExit));
+            m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DoExit));
             m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
         }
         private void DoShowInfo(object[] param)

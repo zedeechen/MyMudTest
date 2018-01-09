@@ -7,11 +7,7 @@ namespace GameSample
     {
         static void Main(string[] args)
         {
-            ConfigFactory.Create<ClassConfig>(ClassConfig.ID);
-            ConfigFactory.Create<RaceConfig>(RaceConfig.ID);
-            ConfigFactory.Create<DungeonConfig>(DungeonConfig.ID);
-            ConfigFactory.Create<EquipConfig>(EquipConfig.ID);
-            ConfigFactory.Create<NamesConfig>(NamesConfig.ID);
+            SingletonFactory<GameController>.Instance.InitConfigs();
 
             SingletonFactory<ScenarioController>.Instance.InitScenarioes();
             SingletonFactory<ScenarioController>.Instance.EnterScenario(SCENARIO_TYPE.GLOBAL);

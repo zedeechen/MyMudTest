@@ -10,7 +10,7 @@ namespace ZDMMO
 {
     public class FileUtil
     {
-        public static void SaveData(string filePath, Object serializableObj)
+        public static bool SaveData(string filePath, Object serializableObj)
         {
             Stream fStream = null;
             try
@@ -19,6 +19,11 @@ namespace ZDMMO
                 BinaryFormatter binFormat = new BinaryFormatter();//创建二进制序列化器
                 binFormat.Serialize(fStream, serializableObj);
                 fStream.Flush();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
             }
             finally
             {

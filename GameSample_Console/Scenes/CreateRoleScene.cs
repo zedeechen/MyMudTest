@@ -164,7 +164,7 @@ namespace GameSample
 
         private void DoneCreateHero(object[] param)
         {
-            SingletonFactory<UserInfo>.Instance.AddHero(mInfo);
+            SingletonFactory<GameController>.Instance.AddHero(mInfo);
             ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
         }
 

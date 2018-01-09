@@ -22,5 +22,12 @@ namespace GameSample
                 mConfig = CSVUtilBase.ParseContent<int, MapConfig>(Properties.Resources.map, "id");
             }
         }
+
+        [CSVElement("id")]
+        public int id { get; set; }
+        [CSVElement("room_list")]
+        public string roomList { get; set; }
+        [CSVElement("default_room_id")]
+        public int defaultRoomId { get; set; }
     }
 }

@@ -17,29 +17,46 @@ namespace GameSample
             }
         }
 
-        public DungeonInfo ExploringDungeon
+        private string m_DefaultFileName = null;
+
+        public void InitConfigs()
         {
-            get;
-            private set;
+            ConfigFactory.Create<ClassConfig>(ClassConfig.ID);
+            ConfigFactory.Create<RaceConfig>(RaceConfig.ID);
+            ConfigFactory.Create<DungeonConfig>(DungeonConfig.ID);
+            ConfigFactory.Create<EquipConfig>(EquipConfig.ID);
+            ConfigFactory.Create<NamesConfig>(NamesConfig.ID);
+            ConfigFactory.Create<MapConfig>(MapConfig.ID);
+            ConfigFactory.Create<RoomConfig>(RoomConfig.ID);
         }
-        internal void EnterDungeon()
-        {
-            ExploringDungeon = SingletonFactory<DungeonInfo>.Instance;
-            ExploringDungeon.SetDungeon(1);
-        }
+
+        //public DungeonInfo ExploringDungeon
+        //{
+        //    get;
+        //    private set;
+        //}
+        //internal void EnterDungeon()
+        //{
+        //    ExploringDungeon = SingletonFactory<DungeonInfo>.Instance;
+        //    ExploringDungeon.SetDungeon(1);
+        //}
 
         internal void SaveGame(string fileName)
         {
+            if (!string.IsNullOrEmpty(fileName))
+                fileName = m_DefaultFileName;
+
             if (string.IsNullOrEmpty(fileName))
-                FileUtil.SaveData(".\\autosave.txt", SingletonFactory<UserInfo>.Instance);
-            else
-                FileUtil.SaveData(string.Format(".\\{0}.txt", fileName), SingletonFactory<UserInfo>.Instance);
+                fileName = "autosave";
+
+            if (FileUtil.SaveData(string.Format(".\\{0}.txt", fileName), SingletonFactory<UserInfo>.Instance))
+            {
+                m_DefaultFileName = fileName;
+            }
         }
 
         public void CreateNewGame()
         {
-            InitConfigs();
-
             SingletonFactory<UserInfo>.Destroy();
         }
 
@@ -48,48 +65,29 @@ namespace GameSample
             CreateNewGame();
 
             UserInfo info;
+            if (!string.IsNullOrEmpty(fileName))
+                fileName = m_DefaultFileName;
+
             if (string.IsNullOrEmpty(fileName))
-                info = FileUtil.LoadData<UserInfo>(".\\autosave.txt");
-            else
-                info = FileUtil.LoadData<UserInfo>(string.Format(".\\{0}.txt", fileName));
+                fileName = "autosave";
+
+            info = FileUtil.LoadData<UserInfo>(string.Format(".\\{0}.txt", fileName));
             if (info != null)
             {
                 SingletonFactory<UserInfo>.ResetInstance(info);
+                m_DefaultFileName = fileName;
                 return true;
             }
             return false;
         }
 
-        private void InitConfigs()
-        {
-            ConfigFactory.Create<ClassConfig>(ClassConfig.ID);
-            ConfigFactory.Create<RaceConfig>(RaceConfig.ID);
-            ConfigFactory.Create<DungeonConfig>(DungeonConfig.ID);
-            ConfigFactory.Create<EquipConfig>(EquipConfig.ID);
-        }
-
         internal void AddHero(HeroInfo newHero)
         {
             SingletonFactory<UserInfo>.Instance.AddHero(newHero);
-            Console.WriteLine(string.Format("HP:{0}, AB:{1}, AC:{2}",
-                newHero.GetAdvProp(enmPropType.HP),
-                newHero.GetAdvProp(enmPropType.ATTACK_BONUS),
-                newHero.GetAdvProp(enmPropType.ARMOR_CLASS)));
+            //Console.WriteLine(string.Format("HP:{0}, AB:{1}, AC:{2}",
+            //    newHero.GetAdvProp(enmPropType.HP),
+            //    newHero.GetAdvProp(enmPropType.ATTACK_BONUS),
+            //    newHero.GetAdvProp(enmPropType.ARMOR_CLASS)));
         }
-
-        internal void LeaveDungeon()
-        {
-        }
-
-        internal void EnterHome()
-        {
-        }
-
-        internal void FinishedCreatingRole()
-        {
-            EnterHome();
-        }
-
-        
     }
 }
