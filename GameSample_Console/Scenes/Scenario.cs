@@ -10,6 +10,7 @@ namespace GameSample
         protected MapConfig m_MapConfig;
         protected int m_Step;
 
+        protected int m_FixedMapId = 0;
 
         public IScenario()
         {
@@ -19,15 +20,29 @@ namespace GameSample
         }
         abstract protected void InitCommands();
 
-        protected virtual void AttachMap(MapConfig config)
+        public void AttachMapById(int mapId)
         {
-            m_MapConfig = config;
+            if (m_FixedMapId != 0)
+            {
+                mapId = m_FixedMapId;
+            }
+            if (mapId != 0)
+            {
+                MapConfig config = SingletonFactory<MapConfig>.Instance.GetDataById(mapId);
+                if (config != null)
+                    m_MapConfig = config;
+            }
         }
 
-        protected void ExitToScene(SCENARIO_TYPE targetScene)
+        public virtual void OnEnter()
+        {
+
+        }
+
+        protected void ExitToScene(SCENARIO_TYPE targetScene, int mapId = 0)
         {
             ResetScene();
-            SingletonFactory<ScenarioController>.Instance.EnterScenario(targetScene);
+            SingletonFactory<ScenarioController>.Instance.EnterScenario(targetScene, mapId);
         }
 
         protected virtual void ResetScene()

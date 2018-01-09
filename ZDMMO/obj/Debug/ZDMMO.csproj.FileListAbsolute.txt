@@ -2,3 +2,8 @@ D:\Projects\MyMMOFramework\ZDMMO\bin\Debug\ZDMMO.dll
 D:\Projects\MyMMOFramework\ZDMMO\bin\Debug\ZDMMO.pdb
 D:\Projects\MyMMOFramework\ZDMMO\obj\Debug\ZDMMO.dll
 D:\Projects\MyMMOFramework\ZDMMO\obj\Debug\ZDMMO.pdb
+D:\Projects\MyMMOFramework\MyMudTest\ZDMMO\bin\Debug\ZDMMO.dll
+D:\Projects\MyMMOFramework\MyMudTest\ZDMMO\bin\Debug\ZDMMO.pdb
+D:\Projects\MyMMOFramework\MyMudTest\ZDMMO\obj\Debug\ZDMMO.csprojResolveAssemblyReference.cache
+D:\Projects\MyMMOFramework\MyMudTest\ZDMMO\obj\Debug\ZDMMO.dll
+D:\Projects\MyMMOFramework\MyMudTest\ZDMMO\obj\Debug\ZDMMO.pdb

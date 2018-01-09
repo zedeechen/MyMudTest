@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZDMMO
 {
+    /// <summary>
+    /// a weired function which should be optimized...
+    /// </summary>
     public class ConfigFactory
     {
         public static Dictionary<uint, IConfig> mConfigs;
@@ -21,6 +24,19 @@ namespace ZDMMO
                 config.InitConfig();
                 mConfigs[configTypeId] = config;
             }
+        }
+
+        public static IConfig GetConfig<T>(uint id) where T : IConfig, new()
+        {
+            IConfig config;
+            if (!mConfigs.TryGetValue(id, out config))
+            {
+                config = new T();
+                config.InitConfig();
+                mConfigs[id] = config;
+            }
+
+            return config;
         }
 
         public static void DestroyAllConfigs()

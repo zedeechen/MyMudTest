@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ZDMMO;
 
 namespace GameSample
@@ -7,19 +8,27 @@ namespace GameSample
     {
         public static uint ID = 6;
 
-        public static Dictionary<int, MapConfig> mConfig;
+        public static Dictionary<int, MapConfig> mConfigs;
 
         public void Dispose()
         {
-            mConfig.Clear();
-            mConfig = null;
+            mConfigs.Clear();
+            mConfigs = null;
+        }
+
+        public MapConfig GetDataById(int mapId)
+        {
+            InitConfig();
+            MapConfig config;
+            mConfigs.TryGetValue(mapId, out config);
+            return config;
         }
 
         public void InitConfig()
         {
-            if (mConfig == null)
+            if (mConfigs == null)
             {
-                mConfig = CSVUtilBase.ParseContent<int, MapConfig>(Properties.Resources.map, "id");
+                mConfigs = CSVUtilBase.ParseContent<int, MapConfig>(Properties.Resources.map, "id");
             }
         }
 
@@ -29,5 +38,7 @@ namespace GameSample
         public string roomList { get; set; }
         [CSVElement("default_room_id")]
         public int defaultRoomId { get; set; }
+
+        
     }
 }

@@ -28,7 +28,10 @@ namespace GameSample
             ConfigFactory.Create<NamesConfig>(NamesConfig.ID);
             ConfigFactory.Create<MapConfig>(MapConfig.ID);
             ConfigFactory.Create<RoomConfig>(RoomConfig.ID);
+            ConfigFactory.Create<EventConfig>(EventConfig.ID);
         }
+
+        
 
         //public DungeonInfo ExploringDungeon
         //{

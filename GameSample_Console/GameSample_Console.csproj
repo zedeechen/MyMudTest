@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleController.cs" />
+    <Compile Include="Config\EventConfig.cs" />
     <Compile Include="Config\MapConfig.cs" />
     <Compile Include="Config\RoomConfig.cs" />
     <Compile Include="Dungeon\EventInfo.cs" />

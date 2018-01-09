@@ -6,6 +6,7 @@ namespace GameSample
     {
         public GlobalScene() : base()
         {
+            m_FixedMapId = 1;
         }
 
         protected override void InitCommands()

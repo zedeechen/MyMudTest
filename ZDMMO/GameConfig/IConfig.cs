@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ZDMMO
 {
+    /// <summary>
+    /// a weired function which should be optimized...
+    /// </summary>
     public interface IConfig
     {
         void InitConfig();

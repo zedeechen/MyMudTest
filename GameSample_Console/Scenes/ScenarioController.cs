@@ -14,7 +14,7 @@ namespace GameSample
 
         private List<Command> m_GlobalCommands;
 
-        public void EnterScenario(SCENARIO_TYPE type)
+        public void EnterScenario(SCENARIO_TYPE type, int mapId)
         {
             Console.Clear();
             if (m_Scenarioes != null)
@@ -22,7 +22,11 @@ namespace GameSample
                 m_Scenarioes.TryGetValue(type, out m_currentScene);
                 if (m_currentScene != null)
                 {
+                    m_currentScene.AttachMapById(mapId);
+                    m_currentScene.OnEnter();
+
                     m_currentScene.ShowCommandList();
+
                 }
             }
         }
@@ -80,11 +84,23 @@ namespace GameSample
 
             m_GlobalCommands = new List<Command>();
             m_GlobalCommands.Add(new Command("查看", "Look", "L", DoShowInfo));
+            m_GlobalCommands.Add(new Command("向北走", "North", "N", DoMove, enmDirectionType.NORTH));
+            m_GlobalCommands.Add(new Command("向南走", "South", "S", DoMove, enmDirectionType.SOUTH));
+            m_GlobalCommands.Add(new Command("向东走", "East", "E", DoMove, enmDirectionType.EAST));
+            m_GlobalCommands.Add(new Command("向西走", "West", "W", DoMove, enmDirectionType.WEST));
 
             m_GlobalCommands.Add(new Command("保存游戏", "Save", "S", DoSaveGame));
             m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DoExit));
             m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
         }
+
+        private void DoMove(object[] param)
+        {
+            enmDirectionType dir = (enmDirectionType)(int.Parse(param[0].ToString()));
+
+            //TODO
+        }
+
         private void DoShowInfo(object[] param)
         {
             if (SingletonFactory<UserInfo>.Instance != null)
