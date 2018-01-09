@@ -1,0 +1,11 @@
+D:\Projects\MyMMOFramework\MyMMOFramework\bin\Debug\MyMMOFramework.exe.config
+D:\Projects\MyMMOFramework\MyMMOFramework\bin\Debug\MyMMOFramework.exe
+D:\Projects\MyMMOFramework\MyMMOFramework\bin\Debug\MyMMOFramework.pdb
+D:\Projects\MyMMOFramework\MyMMOFramework\obj\Debug\MyMMOFramework.csprojResolveAssemblyReference.cache
+D:\Projects\MyMMOFramework\MyMMOFramework\obj\Debug\MyMMOFramework.Properties.Resources.resources
+D:\Projects\MyMMOFramework\MyMMOFramework\obj\Debug\MyMMOFramework.csproj.GenerateResource.Cache
+D:\Projects\MyMMOFramework\MyMMOFramework\obj\Debug\MyMMOFramework.exe
+D:\Projects\MyMMOFramework\MyMMOFramework\obj\Debug\MyMMOFramework.pdb
+D:\Projects\MyMMOFramework\MyMMOFramework\bin\Debug\ZDMMO.dll
+D:\Projects\MyMMOFramework\MyMMOFramework\bin\Debug\ZDMMO.pdb
+D:\Projects\MyMMOFramework\MyMMOFramework\obj\Debug\MyMMOFramework.frmMain.resources

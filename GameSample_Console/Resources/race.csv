@@ -1,0 +1,7 @@
+id,type,name,str_m,int_m,dex_m,con_m,wis_m,cha_m
+1,1,Human,0,0,0,0,0,0
+2,1,Dwarf,2,0,0,2,0,-2
+3,1,Elf,0,0,2,-2,0,0
+101,2,Goblin,-2,-2,2,-2,2,-2
+102,2,Bugbear,2,-2,-2,2,0,-2
+103,2,Wolf,-2,-2,2,-2,2,-2

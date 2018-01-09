@@ -1,0 +1,4 @@
+D:\Projects\MyMMOFramework\ZDMMO\bin\Debug\ZDMMO.dll
+D:\Projects\MyMMOFramework\ZDMMO\bin\Debug\ZDMMO.pdb
+D:\Projects\MyMMOFramework\ZDMMO\obj\Debug\ZDMMO.dll
+D:\Projects\MyMMOFramework\ZDMMO\obj\Debug\ZDMMO.pdb
