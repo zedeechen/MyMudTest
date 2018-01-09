@@ -11,7 +11,7 @@ namespace GameSample
     {
         public BattleScene() : base() { }
 
-        protected override void InitCommands()
+        protected void InitCommands()
         {
             AddCommand(new Command("攻击", "Attack", "A", DoAttack), 0);
             AddCommand(new Command("查看", "Check", "C", DoCheck), 0);

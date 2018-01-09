@@ -12,6 +12,23 @@ namespace GameSample
         private Dictionary<SCENARIO_TYPE, IScenario> m_Scenarioes;
         private IScenario m_currentScene;
 
+        internal void EnterMap(int mapId, int defaultRoomId = 0)
+        {
+            if (m_currentScene != null)
+                m_currentScene.OnExit();
+
+            MapConfig config = SingletonFactory<MapConfig>.Instance.GetDataById(mapId);
+
+            m_currentScene = CreateOrGetScene((SCENARIO_TYPE)config.sceneType);
+            m_currentScene.AttachMapById(mapId);
+
+            if (defaultRoomId == 0)
+            {
+                defaultRoomId = config.defaultRoomId;
+            }
+            m_currentScene.EnterRoom(defaultRoomId);
+        }
+
         private List<Command> m_GlobalCommands;
 
         public void EnterScenario(SCENARIO_TYPE type, int mapId)
@@ -23,7 +40,6 @@ namespace GameSample
                 if (m_currentScene != null)
                 {
                     m_currentScene.AttachMapById(mapId);
-                    m_currentScene.OnEnter();
 
                     m_currentScene.ShowCommandList();
 
@@ -66,7 +82,7 @@ namespace GameSample
             return false;
         }
 
-        public void InitScenarioes()
+        public void Init()
         {
             if (m_Scenarioes == null)
             {
@@ -79,7 +95,7 @@ namespace GameSample
 
             for (SCENARIO_TYPE type = SCENARIO_TYPE.BEGIN + 1; type < SCENARIO_TYPE.END; ++type)
             {
-                CreateScene(type);
+                //CreateScene(type);
             }
 
             m_GlobalCommands = new List<Command>();
@@ -92,6 +108,15 @@ namespace GameSample
             m_GlobalCommands.Add(new Command("保存游戏", "Save", "S", DoSaveGame));
             m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DoExit));
             m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
+        }
+
+        internal VOID_PARAM_DELEGATE DoSpecialCommandWithType(int type)
+        {
+            switch (type)
+            {
+                default:
+                    return null;
+            }
         }
 
         private void DoMove(object[] param)
@@ -126,23 +151,27 @@ namespace GameSample
 
         }
 
-        private void CreateScene(SCENARIO_TYPE type)
+        private IScenario CreateOrGetScene(SCENARIO_TYPE type)
         {
-            switch (type)
+            if (!m_Scenarioes.ContainsKey(type))
             {
-                case SCENARIO_TYPE.GLOBAL:
-                    m_Scenarioes[type] = new GlobalScene();
-                    break;
-                case SCENARIO_TYPE.CREATE_ROLE:
-                    m_Scenarioes[type] = new CreateRoleScene();
-                    break;
-                case SCENARIO_TYPE.SAFETY_AREA:
-                    m_Scenarioes[type] = new SafetyAreaScene();
-                    break;
-                case SCENARIO_TYPE.BATTLE:
-                    m_Scenarioes[type] = new BattleScene();
-                    break;
+                switch (type)
+                {
+                    case SCENARIO_TYPE.GLOBAL:
+                        m_Scenarioes[type] = new LoginScene();
+                        break;
+                    case SCENARIO_TYPE.CREATE_ROLE:
+                        m_Scenarioes[type] = new CreateRoleScene();
+                        break;
+                    case SCENARIO_TYPE.SAFETY_AREA:
+                        m_Scenarioes[type] = new SafetyAreaScene();
+                        break;
+                    case SCENARIO_TYPE.BATTLE:
+                        m_Scenarioes[type] = new BattleScene();
+                        break;
+                }
             }
+            return m_Scenarioes[type];
         }
     }
 }

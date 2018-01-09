@@ -94,7 +94,7 @@
     <Compile Include="Utils\CSVUtil.cs" />
     <Compile Include="Scenes\CreateRoleScene.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Scenes\GlobalScene.cs" />
+    <Compile Include="Scenes\LoginScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Scenario.cs" />

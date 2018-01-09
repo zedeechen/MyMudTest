@@ -11,6 +11,7 @@ namespace GameSample
 
         public CreateRoleScene() : base()
         {
+            InitCommands();
         }
 
         private Dictionary<enmPropType, int> _bp = new Dictionary<enmPropType, int>();

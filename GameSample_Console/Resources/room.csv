@@ -1,2 +1,4 @@
-id,desc,directions,objects,special_commands,event_id
-1,,0,,new|load,1|2
+id,desc,directions,objects,special_commands
+1,,0,,Fixed
+2,,0,,Fixed
+3,,0,,New:N:1:0|Load:L:2:0

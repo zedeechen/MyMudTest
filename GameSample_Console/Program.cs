@@ -9,8 +9,8 @@ namespace GameSample
         {
             SingletonFactory<GameController>.Instance.InitConfigs();
 
-            SingletonFactory<ScenarioController>.Instance.InitScenarioes();
-            SingletonFactory<ScenarioController>.Instance.EnterScenario(SCENARIO_TYPE.GLOBAL, 0);
+            SingletonFactory<ScenarioController>.Instance.Init();
+            SingletonFactory<ScenarioController>.Instance.EnterMap(1);//.EnterScenario(SCENARIO_TYPE.GLOBAL, 0);
 
             while (true)
             {

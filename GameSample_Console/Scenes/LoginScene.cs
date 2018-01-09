@@ -2,22 +2,22 @@
 
 namespace GameSample
 {
-    public sealed class GlobalScene : IScenario
+    public sealed class LoginScene : IScenario
     {
-        public GlobalScene() : base()
+        public LoginScene() : base()
         {
             m_FixedMapId = 1;
         }
 
         protected override void InitCommands()
         {
-            AddCommand(new Command("新的游戏", "New","N", DoNewGame));
-            AddCommand(new Command("加载游戏", "Load","L", DoLoadGame));
+            AddCommand(new Command("新的游戏", "New", "N", DoNewGame));
+            AddCommand(new Command("加载游戏", "Load", "L", DoLoadGame));
         }
 
         private void DoNewGame(object[] param)
         {
-            ExitToScene(SCENARIO_TYPE.CREATE_ROLE);
+            SingletonFactory<ScenarioController>.Instance.EnterMap(2);
         }
         private void DoLoadGame(object[] param)
         {
@@ -26,9 +26,11 @@ namespace GameSample
                 fileName = param[0].ToString();
 
             if (SingletonFactory<GameController>.Instance.LoadGame(fileName))
-                ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
+                SingletonFactory<ScenarioController>.Instance.EnterMap(3);
+            else
+                ShowCommandList();
         }
-        
-        
+
+
     }
 }
