@@ -119,8 +119,8 @@ namespace GameSample
                 case SCENARIO_TYPE.CREATE_ROLE:
                     m_Scenarioes[type] = new CreateRoleScene();
                     break;
-                case SCENARIO_TYPE.HOME:
-                    m_Scenarioes[type] = new HomeScene();
+                case SCENARIO_TYPE.SAFETY_AREA:
+                    m_Scenarioes[type] = new SafetyAreaScene();
                     break;
                 case SCENARIO_TYPE.BATTLE:
                     m_Scenarioes[type] = new BattleScene();

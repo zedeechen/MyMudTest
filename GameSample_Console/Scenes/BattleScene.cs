@@ -7,7 +7,7 @@ using ZDMMO;
 
 namespace GameSample
 {
-    public class BattleScene : IScenario
+    public sealed class BattleScene : IScenario
     {
         public BattleScene() : base() { }
 
@@ -31,7 +31,7 @@ namespace GameSample
 
         private void DoBack(object[] param)
         {
-            ExitToScene(SCENARIO_TYPE.HOME);
+            ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
         }
 
         private void DoAttack(object[] param)

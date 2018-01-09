@@ -5,7 +5,7 @@ using ZDMMO;
 
 namespace GameSample
 {
-    public class CreateRoleScene : IScenario
+    public sealed class CreateRoleScene : IScenario
     {
         private HeroInfo mInfo;
 
@@ -165,7 +165,7 @@ namespace GameSample
         private void DoneCreateHero(object[] param)
         {
             SingletonFactory<UserInfo>.Instance.AddHero(mInfo);
-            ExitToScene(SCENARIO_TYPE.HOME);
+            ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
         }
 
         private void DoReRoll(object[] param)

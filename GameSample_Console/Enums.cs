@@ -5,7 +5,7 @@
         BEGIN = 0,
         GLOBAL = 1,
         CREATE_ROLE = 2,
-        HOME = 3,
+        SAFETY_AREA = 3,
         BATTLE = 4,
         END = 5,
     }

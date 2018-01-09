@@ -2,7 +2,7 @@
 
 namespace GameSample
 {
-    public class GlobalScene : IScenario
+    public sealed class GlobalScene : IScenario
     {
         public GlobalScene() : base()
         {
@@ -25,7 +25,7 @@ namespace GameSample
                 fileName = param[0].ToString();
 
             if (SingletonFactory<GameController>.Instance.LoadGame(fileName))
-                ExitToScene(SCENARIO_TYPE.HOME);
+                ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
         }
         
         

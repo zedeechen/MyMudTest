@@ -7,7 +7,9 @@ namespace GameSample
     public abstract class IScenario
     {
         private Dictionary<int,List<Command>> m_Commands;
+        protected MapConfig m_MapConfig;
         protected int m_Step;
+
 
         public IScenario()
         {
@@ -15,8 +17,13 @@ namespace GameSample
             m_Step = 0;
             InitCommands();
         }
-
         abstract protected void InitCommands();
+
+        protected virtual void AttachMap(MapConfig config)
+        {
+            m_MapConfig = config;
+        }
+
         protected void ExitToScene(SCENARIO_TYPE targetScene)
         {
             ResetScene();
@@ -26,6 +33,7 @@ namespace GameSample
         protected virtual void ResetScene()
         {
             m_Step = 0;
+            m_MapConfig = null;
         }
 
         public List<Command> CommandList
@@ -88,34 +96,5 @@ namespace GameSample
         protected virtual void ShowWordsAfterCommands()
         {
         }
-
-        //public bool DoCommand(string s)
-        //{
-        //    if (m_Commands != null)
-        //    {
-        //        List<Command> _cmds;
-
-        //        string[] arr = s.Split(' ');
-
-        //        string key = arr[0];
-        //        object[] param = new object[arr.Length - 1];
-        //        for (int i = 1; i < arr.Length; ++i)
-        //        {
-        //            param[i - 1] = arr[i];
-        //        }
-
-        //        if (m_Commands.TryGetValue(m_Step, out _cmds))
-        //        {
-        //            for (int i = 0; i < _cmds.Count; ++i)
-        //            {
-        //                if (_cmds[i].TryOperateWithKey(key, param))
-        //                {
-        //                    return true;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return false;
-        //}
     }
 }

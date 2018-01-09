@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleController.cs" />
+    <Compile Include="Config\MapConfig.cs" />
+    <Compile Include="Config\RoomConfig.cs" />
     <Compile Include="Dungeon\EventInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -83,7 +85,7 @@
     <Compile Include="Heroes\Modules\BasePointModule.cs" />
     <Compile Include="Heroes\Modules\ClassModule.cs" />
     <Compile Include="Heroes\Modules\RaceModule.cs" />
-    <Compile Include="Scenes\HomeScene.cs" />
+    <Compile Include="Scenes\SafetyAreaScene.cs" />
     <Compile Include="Items\BaseItem.cs" />
     <Compile Include="Items\BaseItemFactory.cs" />
     <Compile Include="Team\TeamInfo.cs" />

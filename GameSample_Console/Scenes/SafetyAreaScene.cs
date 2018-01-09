@@ -3,9 +3,9 @@ using ZDMMO;
 
 namespace GameSample
 {
-    public class HomeScene : IScenario
+    public sealed class SafetyAreaScene : IScenario
     {
-        public HomeScene() : base()
+        public SafetyAreaScene() : base()
         {
         }
 
