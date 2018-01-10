@@ -11,7 +11,7 @@ namespace GameSample
     {
         public BattleScene() : base() { }
 
-        protected void InitCommands()
+        protected override void InitCommands()
         {
             //AddCommand(new Command("攻击", "Attack", "A", DoAttack), 0);
             //AddCommand(new Command("查看", "Check", "C", DoCheck), 0);
@@ -44,7 +44,7 @@ namespace GameSample
                 {
                     targetIndex = int.Parse(param[0].ToString()) - 1;
                 }
-                catch(Exception e)
+                catch(Exception)
                 {}
                 SingletonFactory<BattleController>.Instance.NextRound(targetIndex,ref log);
                 Console.WriteLine(log);

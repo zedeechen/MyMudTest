@@ -118,40 +118,40 @@ namespace GameSample
         //}
         
 
-        private void DoChooseRace(object[] param)
-        {
-            if (mInfo == null)
-                mInfo = new HeroInfo();
+        //private void DoChooseRace(object[] param)
+        //{
+        //    if (mInfo == null)
+        //        mInfo = new HeroInfo();
 
-            byte raceId = 0;
-            try
-            {
-                raceId = byte.Parse(param[0].ToString());
-            }catch(Exception e)
-            {
-            }
+        //    byte raceId = 0;
+        //    try
+        //    {
+        //        raceId = byte.Parse(param[0].ToString());
+        //    }catch(Exception)
+        //    {
+        //    }
 
-            mInfo.SetRace(raceId);
+        //    mInfo.SetRace(raceId);
 
-            NextStep();
-        }
+        //    NextStep();
+        //}
 
-        private void DoChooseClass(object[] param)
-        {
-            byte classId = 0;
-            try
-            {
-                classId = byte.Parse(param[0].ToString());
-            }
-            catch (Exception e)
-            {
-            }
+        //private void DoChooseClass(object[] param)
+        //{
+        //    byte classId = 0;
+        //    try
+        //    {
+        //        classId = byte.Parse(param[0].ToString());
+        //    }
+        //    catch (Exception e)
+        //    {
+        //    }
 
-            mInfo.ResetAllClassLevel();
-            mInfo.SetClassLevel(classId, 1);
+        //    mInfo.ResetAllClassLevel();
+        //    mInfo.SetClassLevel(classId, 1);
 
-            Roll();
-        }
+        //    Roll();
+        //}
 
         private void Roll()
         { 

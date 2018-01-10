@@ -16,7 +16,7 @@ namespace GameSample
             {
                 raceId = byte.Parse(param[0].ToString());
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return enmCommandResult.FAILED;
             }
@@ -33,7 +33,7 @@ namespace GameSample
             {
                 classId = byte.Parse(param[0].ToString());
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return enmCommandResult.FAILED;
             }

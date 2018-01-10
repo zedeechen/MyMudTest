@@ -19,7 +19,10 @@ namespace GameSample
         public static Room ConvertParamsToRoom(string[] param)
         {
             if (param == null || param.Length < 1)
-                throw new Exception("[ConvertParamsToRoom] Illegal room param (at lease one elements to indicate room id)");
+            {
+                Console.WriteLine("[ConvertParamsToRoom] Illegal room param (at lease one elements to indicate room id)");
+                return null;
+            }
 
             try {
                 Room room = new Room(int.Parse(param[0].ToString()));
@@ -28,12 +31,11 @@ namespace GameSample
                     room.InitDirections(param[1].Split(CSVUtilBase.SYMBOL_THIRD));
                 }
                 return room;
-            }catch(Exception e)
+            }catch(Exception)
             {
-                throw new Exception("[ConvertParamsToRoom] Illegal room id - " + param[0].ToString());
+                Console.WriteLine("[ConvertParamsToRoom] Illegal room id - " + param[0].ToString());
+                return null;
             }
-
-            return null;
         }
     }
 }

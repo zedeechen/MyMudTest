@@ -36,7 +36,7 @@ namespace GameSample
                 {
                     room = GameUtil.ConvertParamsToRoom(roomParams[i].Split(CSVUtilBase.SYMBOL_SECOND));
                     
-                    if (room.ID != 0)
+                    if (room != null && room.ID != 0)
                     {
                         m_Rooms[room.ID] = room;
                     }

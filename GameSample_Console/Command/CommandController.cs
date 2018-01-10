@@ -128,7 +128,7 @@ namespace GameSample
 
         private enmCommandResult DoShowInfo(object[] param)
         {
-            if (SingletonFactory<UserInfo>.Instance.MTeamCreated != null)
+            if (SingletonFactory<UserInfo>.Instance.MTeamCreated)
             {
                 StringBuilder sb = null;
                 SingletonFactory<UserInfo>.Instance.DoPrint(ref sb);

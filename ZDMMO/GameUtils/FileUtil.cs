@@ -21,7 +21,7 @@ namespace ZDMMO
                 fStream.Flush();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
