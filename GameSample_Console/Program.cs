@@ -10,7 +10,7 @@ namespace GameSample
             SingletonFactory<GameController>.Instance.InitConfigs();
 
             SingletonFactory<ScenarioController>.Instance.Init();
-            SingletonFactory<ScenarioController>.Instance.EnterMap(1);//.EnterScenario(SCENARIO_TYPE.GLOBAL, 0);
+            SingletonFactory<ScenarioController>.Instance.EnterMap(int.Parse(Properties.Resources.LoginMapID));//.EnterScenario(SCENARIO_TYPE.GLOBAL, 0);
 
             while (true)
             {

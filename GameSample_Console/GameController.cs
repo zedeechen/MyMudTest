@@ -20,7 +20,7 @@ namespace GameSample
 
         private string m_DefaultFileName = null;
 
-        private HeroInfo mCreatingHero;
+        
 
         public void InitConfigs()
         {
@@ -33,19 +33,6 @@ namespace GameSample
             ConfigFactory.Create<RoomConfig>(RoomConfig.ID);
             ConfigFactory.Create<EventConfig>(EventConfig.ID);
         }
-
-        
-
-        //public DungeonInfo ExploringDungeon
-        //{
-        //    get;
-        //    private set;
-        //}
-        //internal void EnterDungeon()
-        //{
-        //    ExploringDungeon = SingletonFactory<DungeonInfo>.Instance;
-        //    ExploringDungeon.SetDungeon(1);
-        //}
 
         internal void SaveGame(string fileName)
         {
@@ -69,7 +56,6 @@ namespace GameSample
             string[] param = commParam.Split(CSVUtilBase.SYMBOL_SECOND);
             if (param.Length == 2)
             {
-                Command comm = null;
                 switch (param[0].ToLower())
                 {
                     case "list":
@@ -83,7 +69,19 @@ namespace GameSample
                                     {
                                         key = (byte)(i + 1);
                                         conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
-                                        m_Commands.Add(new Command(conf.name, key.ToString(), null, DoChooseRace, key));
+                                        m_Commands.Add(new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseRace, key));
+                                    }
+                                }
+                                break;
+                            case "class":
+                                {
+                                    ClassConfig conf;
+                                    byte key;
+                                    for (int i = 0, count = SingletonFactory<ClassConfig>.Instance.GetMaxId(); i < count; i++)
+                                    {
+                                        key = (byte)(i + 1);
+                                        conf = SingletonFactory<ClassConfig>.Instance.GetDataById(key);
+                                        m_Commands.Add(new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseClass, key));
                                     }
                                 }
                                 break;
@@ -99,22 +97,7 @@ namespace GameSample
             }
         }
 
-        public void DoChooseRace(object[] param)
-        {
-            if (mCreatingHero == null)
-                mCreatingHero = new HeroInfo();
-
-            byte raceId = 0;
-            try
-            {
-                raceId = byte.Parse(param[0].ToString());
-            }
-            catch (Exception e)
-            {
-            }
-
-            mCreatingHero.SetRace(raceId);
-        }
+        
 
         public void CreateNewGame()
         {

@@ -121,8 +121,17 @@
   <data name="classes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\classes.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="CreateRoleMapID" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DefaultGameMapID" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="events" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\events.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="LoginMapID" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\map.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>

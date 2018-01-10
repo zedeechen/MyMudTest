@@ -9,9 +9,6 @@ namespace GameSample
 
     public class ScenarioController
     {
-        //private Dictionary<SCENARIO_TYPE, IScenario> m_Scenarioes;
-        //private IScenario m_currentScene;
-
         private Dictionary<int, Map> m_Maps;
         private Map m_currentMap;
 
@@ -57,23 +54,7 @@ namespace GameSample
         }
 
         private List<Command> m_GlobalCommands;
-
-        //public void EnterScenario(SCENARIO_TYPE type, int mapId)
-        //{
-        //    Console.Clear();
-        //    if (m_Scenarioes != null)
-        //    {
-        //        m_Scenarioes.TryGetValue(type, out m_currentScene);
-        //        if (m_currentScene != null)
-        //        {
-        //            m_currentScene.AttachMapById(mapId);
-                    
-        //            m_currentScene.ShowCommandList();
-
-        //        }
-        //    }
-        //}
-
+        
         public void ProcessUserInput(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -113,10 +94,10 @@ namespace GameSample
         {
             m_GlobalCommands = new List<Command>();
             m_GlobalCommands.Add(new Command("查看", "Look", "L", DoShowInfo));
-            m_GlobalCommands.Add(new Command("向北走", "North", "N", DoMove, (int)enmDirectionType.NORTH));
-            m_GlobalCommands.Add(new Command("向南走", "South", "S", DoMove, (int)enmDirectionType.SOUTH));
-            m_GlobalCommands.Add(new Command("向东走", "East", "E", DoMove, (int)enmDirectionType.EAST));
-            m_GlobalCommands.Add(new Command("向西走", "West", "W", DoMove, (int)enmDirectionType.WEST));
+            m_GlobalCommands.Add(new Command("向北走", "North", "N", MoveCommand.DoMove, (int)enmDirectionType.NORTH));
+            m_GlobalCommands.Add(new Command("向南走", "South", "S", MoveCommand.DoMove, (int)enmDirectionType.SOUTH));
+            m_GlobalCommands.Add(new Command("向东走", "East", "E", MoveCommand.DoMove, (int)enmDirectionType.EAST));
+            m_GlobalCommands.Add(new Command("向西走", "West", "W", MoveCommand.DoMove, (int)enmDirectionType.WEST));
 
             m_GlobalCommands.Add(new Command("保存游戏", "Save", "S", DoSaveGame));
             m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DoExit));
@@ -132,14 +113,14 @@ namespace GameSample
                 case 2:
                     return DoLoadGame;
                 case 3:
-                    return DoTeleportRoom;
+                    return MoveCommand.DoTeleportRoom;
                 default:
                     return null;
             }
         }
         private void DoNewGame(object[] param)
         {
-            SingletonFactory<ScenarioController>.Instance.EnterMap(2);
+            SingletonFactory<ScenarioController>.Instance.EnterMap(int.Parse(Properties.Resources.CreateRoleMapID));
         }
         private void DoLoadGame(object[] param)
         {
@@ -148,31 +129,11 @@ namespace GameSample
                 fileName = param[0].ToString();
 
             if (SingletonFactory<GameController>.Instance.LoadGame(fileName))
-                SingletonFactory<ScenarioController>.Instance.EnterMap(3);
+                SingletonFactory<ScenarioController>.Instance.EnterMap(int.Parse(Properties.Resources.DefaultGameMapID));
             //else
             //    ShowCommandList();
         }
-        private void DoTeleportRoom(object[] param)
-        {
-            if (param == null || param.Length <= 0)
-            {
-                return;
-            }
-
-            //this.EnterMap()
-        }
-
         
-
-        private void DoMove(object[] param)
-        {
-            if (param == null || param.Length < 0)
-                return;
-
-            enmDirectionType dir = (enmDirectionType)(int.Parse(param[0].ToString()));
-
-            //TODO
-        }
 
         private void DoShowInfo(object[] param)
         {

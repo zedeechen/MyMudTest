@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BattleController.cs" />
+    <Compile Include="Command\CreateRoleCommand.cs" />
+    <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Config\EventConfig.cs" />
     <Compile Include="Config\MapConfig.cs" />
     <Compile Include="Config\RoomConfig.cs" />

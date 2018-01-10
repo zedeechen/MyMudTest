@@ -76,6 +76,24 @@ namespace GameSample.Properties {
         }
         
         /// <summary>
+        ///   查找类似 2 的本地化字符串。
+        /// </summary>
+        internal static string CreateRoleMapID {
+            get {
+                return ResourceManager.GetString("CreateRoleMapID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 3 的本地化字符串。
+        /// </summary>
+        internal static string DefaultGameMapID {
+            get {
+                return ResourceManager.GetString("DefaultGameMapID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 id,type,params
         ///1,1, 
         ///2,2,  的本地化字符串。
@@ -87,10 +105,19 @@ namespace GameSample.Properties {
         }
         
         /// <summary>
-        ///   查找类似 id,scene_type,room_list,default_room_id
-        ///1,1,1,1
-        ///2,2,2,2
-        ///3,3,, 的本地化字符串。
+        ///   查找类似 1 的本地化字符串。
+        /// </summary>
+        internal static string LoginMapID {
+            get {
+                return ResourceManager.GetString("LoginMapID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 id,default_room,room_list,directions
+        ///1,1001,1001,
+        ///2,2001,2001|2002|2003,
+        ///3,3001,3001:1-3001*2-3001,, 的本地化字符串。
         /// </summary>
         internal static string map {
             get {
@@ -143,9 +170,11 @@ namespace GameSample.Properties {
         
         /// <summary>
         ///   查找类似 id,desc,directions,objects,special_commands
-        ///1,,0,,Fixed
-        ///2,,0,,Fixed
-        ///3,Test Desc,2,1,
+        ///1001,,0,,New:N:1:0|Load:L:2:0
+        ///2001,Choose Race:,0,,List:Race
+        ///2002,,0,,List:Class
+        ///2003,,0,,Info:Me
+        ///3001,Test Desc,2,1,
         ///99,,0,,New:N:1:0|Load:L:2:0 的本地化字符串。
         /// </summary>
         internal static string room {
