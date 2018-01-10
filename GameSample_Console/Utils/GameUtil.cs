@@ -11,6 +11,8 @@ namespace GameSample
     {
         public static Command ConvertParamsToCommand(string[] param)
         {
+            if (param == null)
+                return null;
             return new Command(param[0], param[0], param[1], SingletonFactory<ScenarioController>.Instance.DoSpecialCommandWithType(int.Parse(param[2])));
         }
 

@@ -162,6 +162,8 @@ namespace GameSample
             //this.EnterMap()
         }
 
+        
+
         private void DoMove(object[] param)
         {
             if (param == null || param.Length < 0)

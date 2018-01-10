@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ZDMMO;
 
 namespace GameSample
@@ -18,6 +19,8 @@ namespace GameSample
         }
 
         private string m_DefaultFileName = null;
+
+        private HeroInfo mCreatingHero;
 
         public void InitConfigs()
         {
@@ -56,6 +59,61 @@ namespace GameSample
             {
                 m_DefaultFileName = fileName;
             }
+        }
+
+        internal void SetCommand(string commParam, ref List<Command> m_Commands)
+        {
+            if (string.IsNullOrEmpty(commParam))
+                return;
+
+            string[] param = commParam.Split(CSVUtilBase.SYMBOL_SECOND);
+            if (param.Length == 2)
+            {
+                Command comm = null;
+                switch (param[0].ToLower())
+                {
+                    case "list":
+                        switch(param[1].ToLower())
+                        {
+                            case "race":
+                                {
+                                    RaceConfig conf;
+                                    byte key;
+                                    for (int i = 0, count = SingletonFactory<RaceConfig>.Instance.GetMaxId(1); i < count; i++)
+                                    {
+                                        key = (byte)(i + 1);
+                                        conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
+                                        m_Commands.Add(new Command(conf.name, key.ToString(), null, DoChooseRace, key));
+                                    }
+                                }
+                                break;
+                        }
+                        break;
+                    case "info":
+
+                        break;
+                }
+            }
+            else {
+                m_Commands.Add(GameUtil.ConvertParamsToCommand(param));
+            }
+        }
+
+        public void DoChooseRace(object[] param)
+        {
+            if (mCreatingHero == null)
+                mCreatingHero = new HeroInfo();
+
+            byte raceId = 0;
+            try
+            {
+                raceId = byte.Parse(param[0].ToString());
+            }
+            catch (Exception e)
+            {
+            }
+
+            mCreatingHero.SetRace(raceId);
         }
 
         public void CreateNewGame()

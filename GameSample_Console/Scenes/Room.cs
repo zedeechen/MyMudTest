@@ -39,9 +39,13 @@ namespace GameSample
                 m_Commands = new List<Command>();
 
             m_Commands.Clear();
+            Command command;
             for (int i = 0; i < commands.Length; ++i)
             {
-                m_Commands.Add(GameUtil.ConvertParamsToCommand(commands[i].Split(CSVUtilBase.SYMBOL_SECOND)));
+                SingletonFactory<GameController>.Instance.SetCommand(commands[i], ref m_Commands);
+                //command = GameUtil.ConvertParamsToCommand(commands[i].Split(CSVUtilBase.SYMBOL_SECOND));
+                //if (command != null)
+                //    m_Commands.Add(command);
             }
         }
 
