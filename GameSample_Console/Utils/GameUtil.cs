@@ -25,7 +25,7 @@ namespace GameSample
                 Room room = new Room(int.Parse(param[0].ToString()));
                 if (param.Length >= 2 && !string.IsNullOrEmpty(param[1]))
                 {
-                    room.SetDirections(param[1].Split(CSVUtilBase.SYMBOL_THIRD));
+                    room.InitDirections(param[1].Split(CSVUtilBase.SYMBOL_THIRD));
                 }
                 return room;
             }catch(Exception e)

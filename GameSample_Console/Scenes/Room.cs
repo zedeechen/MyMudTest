@@ -39,17 +39,22 @@ namespace GameSample
                 m_Commands = new List<Command>();
 
             m_Commands.Clear();
-            Command command;
             for (int i = 0; i < commands.Length; ++i)
             {
-                SingletonFactory<GameController>.Instance.SetCommand(commands[i], ref m_Commands);
-                //command = GameUtil.ConvertParamsToCommand(commands[i].Split(CSVUtilBase.SYMBOL_SECOND));
-                //if (command != null)
-                //    m_Commands.Add(command);
+                SingletonFactory<CommandController>.Instance.BindCommand(commands[i], ref m_Commands);
             }
         }
 
-        internal void SetDirections(string[] dirParams)
+        private void InitObjects()
+        {
+            if (string.IsNullOrEmpty(m_Config.objects))
+            {
+                return;
+            }
+            //TODO
+        }
+
+        internal void InitDirections(string[] dirParams)
         {
             if (dirParams != null && dirParams.Length > 0)
             {
@@ -109,13 +114,5 @@ namespace GameSample
             Console.ForegroundColor = defaultColor;
         }
 
-        private void InitObjects()
-        {
-            if (string.IsNullOrEmpty(m_Config.objects))
-            {
-                return;
-            }
-
-        }
     }
 }
