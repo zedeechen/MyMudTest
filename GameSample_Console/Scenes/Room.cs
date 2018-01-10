@@ -65,6 +65,9 @@ namespace GameSample
 
         internal void ShowRoomInfo()
         {
+            ConsoleColor defaultColor = Console.ForegroundColor;
+
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(m_Config.desc);
 
             if (m_Objects != null)
@@ -87,6 +90,7 @@ namespace GameSample
             {
                 List<enmDirectionType> keys = m_Directions.Keys.ToList();
                 Console.Write("Directions:");
+                
                 for (int i = 0;i < keys.Count; ++i)
                 {
                     if (i > 0)
@@ -97,6 +101,8 @@ namespace GameSample
                 }
                 Console.WriteLine();
             }
+
+            Console.ForegroundColor = defaultColor;
         }
 
         private void InitObjects()
