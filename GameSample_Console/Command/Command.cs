@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using ZDMMO;
 
 namespace GameSample
 {
@@ -11,6 +12,9 @@ namespace GameSample
         private ENM_PARAM_DELEGATE mOperation;
         private object[] mFixedParam;
         private string mPrintDesc;
+
+        private Command mCommandOnSuccess;
+        private object[] mParamOnSuccess;
 
         public Command(string name, string key, string shortKey, ENM_PARAM_DELEGATE oper, params object[] param)
         {
@@ -48,6 +52,23 @@ namespace GameSample
             Console.WriteLine(mPrintDesc);
         }
 
+        private void Execute(object[] param)
+        {
+            if (mFixedParam != null)
+                param = mFixedParam;
+
+            switch (mOperation(param))
+            {
+                case enmCommandResult.FAILED:
+                    SingletonFactory<MapController>.Instance.ShowCurrentMapInfo();
+                    break;
+                case enmCommandResult.SUCCESS:
+                    if (mCommandOnSuccess != null)
+                        mCommandOnSuccess.Execute(null);
+                    break;
+            }
+        }
+
         internal bool TryOperateWithKey(string s, object[] param)
         {
             if ((mKey != null && mKey.ToLower() == s.ToLower())
@@ -55,10 +76,7 @@ namespace GameSample
             {
                 if (mOperation != null)
                 {
-                    if (mFixedParam != null)
-                        mOperation(mFixedParam);
-                    else
-                        mOperation(param);
+                    Execute(param);
                     return true;
                 }
                 else
@@ -67,6 +85,11 @@ namespace GameSample
                 }
             }
             return false;
+        }
+
+        internal void SetCommandOnSucess(Command command)
+        {
+            mCommandOnSuccess = command;
         }
     }
 }

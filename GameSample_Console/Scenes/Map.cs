@@ -45,16 +45,44 @@ namespace GameSample
             m_DefaultRoomId = config.defaultRoomId;
         }
 
-        public void EnterRoom(int roomId = 0)
+        internal bool TryTeleport()
+        {
+            if (m_CurrentRoom != null)
+            {
+                if (m_CurrentRoom.MTeleportRoomId != 0)
+                {
+                    return EnterRoom(m_CurrentRoom.MTeleportRoomId);
+                }
+            }
+            return false;
+        }
+
+        public bool EnterRoom(int roomId = 0)
         {
             if (roomId == 0)
                 roomId = m_DefaultRoomId;
-            Room room;
-            if (m_Rooms.TryGetValue(roomId, out room))
+            
+            if (m_Rooms.ContainsKey(roomId))
             {
-                m_CurrentRoom = room;
+                m_CurrentRoom = m_Rooms[roomId];
             }
-            m_CurrentRoom.ShowRoomInfo();
+            if (m_CurrentRoom != null)
+            {
+                m_CurrentRoom.ShowRoomInfo();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        internal void ShowInfo()
+        {
+            if (m_CurrentRoom != null)
+            {
+                m_CurrentRoom.ShowRoomInfo();
+            }
         }
 
         internal void QuitMap()

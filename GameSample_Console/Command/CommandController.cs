@@ -52,13 +52,30 @@ namespace GameSample
             if (string.IsNullOrEmpty(commParam))
                 return;
 
-            string[] param = commParam.Split(CSVUtilBase.SYMBOL_SECOND);
-            if (param.Length == 2)
+            string[] param = commParam.Split(CSVUtilBase.SYMBOL_THIRD);// commParam.Split(CSVUtilBase.SYMBOL_SECOND);
+
+            if (param.Length <= 0)
+                return;
+            Command command, commandOnSuccess = null;
+            if (param.Length >= 2)
             {
-                switch (param[0].ToLower())
+                string[] paramSuccess = param[1].Split(CSVUtilBase.SYMBOL_SECOND);
+                if (paramSuccess.Length > 1)
+                {
+                    commandOnSuccess = new Command(null, null, null, DoSpecialCommandWithType(int.Parse(paramSuccess[0])), paramSuccess[1]);//TODO
+                }
+                else {
+                    commandOnSuccess = new Command(null, null, null, DoSpecialCommandWithType(int.Parse(paramSuccess[0])), null);
+                }
+            }                   
+
+            string[] commandParam = param[0].Split(CSVUtilBase.SYMBOL_SECOND);
+            if (commandParam.Length == 2)
+            {
+                switch (commandParam[0].ToLower())
                 {
                     case "list":
-                        switch (param[1].ToLower())
+                        switch (commandParam[1].ToLower())
                         {
                             case "race":
                                 {
@@ -68,7 +85,9 @@ namespace GameSample
                                     {
                                         key = (byte)(i + 1);
                                         conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
-                                        m_Commands.Add(new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseRace, key));
+                                        command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseRace, key);
+                                        command.SetCommandOnSucess(commandOnSuccess);
+                                        m_Commands.Add(command);
                                     }
                                 }
                                 break;
@@ -80,7 +99,9 @@ namespace GameSample
                                     {
                                         key = (byte)(i + 1);
                                         conf = SingletonFactory<ClassConfig>.Instance.GetDataById(key);
-                                        m_Commands.Add(new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseClass, key));
+                                        command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseClass, key);
+                                        command.SetCommandOnSucess(commandOnSuccess);
+                                        m_Commands.Add(command);
                                     }
                                 }
                                 break;
@@ -92,7 +113,9 @@ namespace GameSample
                 }
             }
             else {
-                m_Commands.Add(GameUtil.ConvertParamsToCommand(param));
+                command = GameUtil.ConvertParamsToCommand(commandParam);
+                command.SetCommandOnSucess(commandOnSuccess);
+                m_Commands.Add(command);
             }
         }
 
@@ -106,6 +129,8 @@ namespace GameSample
                     return DataCommand.DoLoadGame;
                 case 3:
                     return MoveCommand.DoTeleportRoom;
+                case 4:
+                    return MoveCommand.DoChangeMap;
                 default:
                     return null;
             }

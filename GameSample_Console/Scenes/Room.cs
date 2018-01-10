@@ -15,6 +15,8 @@ namespace GameSample
         private RoomConfig m_Config;
 
         private Dictionary<enmDirectionType, int> m_Directions;
+        public int MTeleportRoomId { get; private set; }
+
         public int ID { get; private set; }
         public Room(int roomId)
         {
@@ -66,7 +68,10 @@ namespace GameSample
                 for (int i= 0;i < dirParams.Length;i++)
                 {
                     dir = dirParams[i].Split(CSVUtilBase.SYMBOL_SIXTH);
-                    m_Directions[(enmDirectionType)int.Parse(dir[0])] = int.Parse(dir[1]);
+                    if ((enmDirectionType)int.Parse(dir[0]) == enmDirectionType.TELEPORT)
+                        MTeleportRoomId = int.Parse(dir[1]);
+                    else
+                        m_Directions[(enmDirectionType)int.Parse(dir[0])] = int.Parse(dir[1]);
                 }
             }
 

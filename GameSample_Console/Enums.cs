@@ -50,6 +50,7 @@
 
     public enum enmDirectionType
     {
+        TELEPORT = 0,//for special usage
         NORTH = 1,
         SOUTH = 2,
         EAST = 3,

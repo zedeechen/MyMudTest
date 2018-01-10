@@ -20,6 +20,15 @@ namespace GameSample
             }
         }
 
+        internal bool TryTeleport()
+        {
+            if (m_currentMap != null)
+            {
+                return m_currentMap.TryTeleport();
+            }
+            return false;
+        }
+
         internal void EnterRecordedMap()
         {
             if (SingletonFactory<UserInfo>.Instance.MRecordMapId == 0)
@@ -35,7 +44,7 @@ namespace GameSample
 
         }
 
-        internal void EnterMap(int mapId, int defaultRoomId = 0)
+        internal bool EnterMap(int mapId, int defaultRoomId = 0)
         {
             if (m_Maps == null)
                 m_Maps = new Dictionary<int, Map>();
@@ -55,9 +64,19 @@ namespace GameSample
                     m_currentMap.QuitMap();
                 m_currentMap = map;
                 m_currentMap.EnterRoom();
+                
             }
             else
             {
+            }
+            return true;
+        }
+
+        internal void ShowCurrentMapInfo()
+        {
+            if (m_currentMap != null)
+            {
+                m_currentMap.ShowInfo();
             }
         }
     }
