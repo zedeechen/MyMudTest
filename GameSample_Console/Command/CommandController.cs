@@ -24,7 +24,7 @@ namespace GameSample
 
             m_GlobalCommands.Add(new Command("保存游戏", "Save", "S", DataCommand.DoSaveGame));
             m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DataCommand.DoExit));
-            //m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
+            m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
         }
 
         public void ProcessUserInput(string input)
@@ -135,12 +135,12 @@ namespace GameSample
                 Console.WriteLine(sb.ToString());
                 return enmCommandResult.SUCCESS;
             }
-            return enmCommandResult.FAILED;
+            return enmCommandResult.IGNORE;
         }
 
-        private void DoHelp(object[] param)
+        private enmCommandResult DoHelp(object[] param)
         {
-
+            return enmCommandResult.IGNORE;
         }
     }
 }
