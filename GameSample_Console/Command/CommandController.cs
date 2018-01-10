@@ -7,6 +7,8 @@ using ZDMMO;
 
 namespace GameSample
 {
+    public delegate enmCommandResult ENM_PARAM_DELEGATE(params object[] param);
+
     public class CommandController
     {
         private List<Command> m_GlobalCommands;
@@ -22,7 +24,7 @@ namespace GameSample
 
             m_GlobalCommands.Add(new Command("保存游戏", "Save", "S", DataCommand.DoSaveGame));
             m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DataCommand.DoExit));
-            m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
+            //m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
         }
 
         public void ProcessUserInput(string input)
@@ -94,7 +96,7 @@ namespace GameSample
             }
         }
 
-        public VOID_PARAM_DELEGATE DoSpecialCommandWithType(int type)
+        public ENM_PARAM_DELEGATE DoSpecialCommandWithType(int type)
         {
             switch (type)
             {
@@ -124,14 +126,16 @@ namespace GameSample
             return false;
         }
 
-        private void DoShowInfo(object[] param)
+        private enmCommandResult DoShowInfo(object[] param)
         {
-            if (SingletonFactory<UserInfo>.Instance != null)
+            if (SingletonFactory<UserInfo>.Instance.MTeamCreated != null)
             {
                 StringBuilder sb = null;
                 SingletonFactory<UserInfo>.Instance.DoPrint(ref sb);
                 Console.WriteLine(sb.ToString());
+                return enmCommandResult.SUCCESS;
             }
+            return enmCommandResult.FAILED;
         }
 
         private void DoHelp(object[] param)

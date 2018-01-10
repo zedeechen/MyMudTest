@@ -3,18 +3,16 @@ using System.Text;
 
 namespace GameSample
 {
-    public delegate void VOID_PARAM_DELEGATE(params object[] param);
-
     public class Command
     {
         private string  mName;
         private string  mKey;
         private string  mShortKey;
-        private VOID_PARAM_DELEGATE mOperation;
+        private ENM_PARAM_DELEGATE mOperation;
         private object[] mFixedParam;
         private string mPrintDesc;
 
-        public Command(string name, string key, string shortKey, VOID_PARAM_DELEGATE oper, params object[] param)
+        public Command(string name, string key, string shortKey, ENM_PARAM_DELEGATE oper, params object[] param)
         {
             mName = name;
             mKey = key;

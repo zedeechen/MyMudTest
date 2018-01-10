@@ -55,4 +55,11 @@
         EAST = 3,
         WEST = 4,
     }
+
+    public enum enmCommandResult
+    {
+        FAILED = 0,
+        SUCCESS = 1,
+        IGNORE = 2,
+    }
 }

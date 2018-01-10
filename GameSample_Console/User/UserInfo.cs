@@ -21,6 +21,8 @@ namespace GameSample
             }
         }
 
+        public bool MTeamCreated { get; private set; }
+
         public int MRecordMapId { get; set; }
         public int MRecordRoomId { get; set; }
         
@@ -38,8 +40,10 @@ namespace GameSample
                     mTeam.AddHero(hero);
                 }
 
-                SingletonFactory<GameController>.Instance.SaveGame(null);
+                //SingletonFactory<GameController>.Instance.SaveGame(null);
             }
+
+            MTeamCreated = true;
         }
 
         internal HeroInfo GetHero(int index)

@@ -13,10 +13,10 @@ namespace GameSample
 
         protected void InitCommands()
         {
-            AddCommand(new Command("攻击", "Attack", "A", DoAttack), 0);
-            AddCommand(new Command("查看", "Check", "C", DoCheck), 0);
+            //AddCommand(new Command("攻击", "Attack", "A", DoAttack), 0);
+            //AddCommand(new Command("查看", "Check", "C", DoCheck), 0);
 
-            AddCommand(new Command("返回", "Back", "B", DoBack), 1);
+            //AddCommand(new Command("返回", "Back", "B", DoBack), 1);
         }
 
         private void DoCheck(object[] param)

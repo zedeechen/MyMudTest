@@ -18,7 +18,7 @@ namespace GameSample
             }
         }
 
-        private string m_DefaultFileName = null;
+        
 
         
 
@@ -34,22 +34,6 @@ namespace GameSample
             ConfigFactory.Create<EventConfig>(EventConfig.ID);
         }
 
-        internal void SaveGame(string fileName)
-        {
-            if (!string.IsNullOrEmpty(fileName))
-                fileName = m_DefaultFileName;
-
-            if (string.IsNullOrEmpty(fileName))
-                fileName = "autosave";
-
-            if (FileUtil.SaveData(string.Format(".\\{0}.txt", fileName), SingletonFactory<UserInfo>.Instance))
-            {
-                m_DefaultFileName = fileName;
-            }
-        }
-
-        
-
         
 
         public void CreateNewGame()
@@ -57,26 +41,7 @@ namespace GameSample
             SingletonFactory<UserInfo>.Destroy();
         }
 
-        internal bool LoadGame(string fileName)
-        {
-            CreateNewGame();
-
-            UserInfo info;
-            if (!string.IsNullOrEmpty(fileName))
-                fileName = m_DefaultFileName;
-
-            if (string.IsNullOrEmpty(fileName))
-                fileName = "autosave";
-
-            info = FileUtil.LoadData<UserInfo>(string.Format(".\\{0}.txt", fileName));
-            if (info != null)
-            {
-                SingletonFactory<UserInfo>.ResetInstance(info);
-                m_DefaultFileName = fileName;
-                return true;
-            }
-            return false;
-        }
+        
 
         internal void AddHero(HeroInfo newHero)
         {

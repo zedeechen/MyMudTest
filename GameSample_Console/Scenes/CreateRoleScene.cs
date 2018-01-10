@@ -38,32 +38,34 @@ namespace GameSample
 
         protected override void InitCommands()
         {
-            {
-                RaceConfig conf;
-                byte key;
-                for (int i = 0, count = SingletonFactory<RaceConfig>.Instance.GetMaxId(1); i < count; i++)
-                {
-                    key = (byte)(i + 1);
-                    conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
-                    AddCommand(new Command(conf.name, key.ToString(), null, DoChooseRace, key), 0);
-                }
-            }
+            //{
+            //    RaceConfig conf;
+            //    byte key;
+            //    for (int i = 0, count = SingletonFactory<RaceConfig>.Instance.GetMaxId(1); i < count; i++)
+            //    {
+            //        key = (byte)(i + 1);
+            //        conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
+            //        AddCommand(new Command(conf.name, key.ToString(), null, DoChooseRace, key), 0);
+            //    }
+            //}
 
-            {
-                ClassConfig conf;
-                byte key;
-                for (int i = 0, count = SingletonFactory<ClassConfig>.Instance.GetMaxId(); i < count; i++)
-                {
-                    key = (byte)(i + 1);
-                    conf = SingletonFactory<ClassConfig>.Instance.GetDataById(key);
-                    AddCommand(new Command(conf.name, key.ToString(), null, DoChooseClass, key), 1);
-                }
-            }
+            //{
+            //    ClassConfig conf;
+            //    byte key;
+            //    for (int i = 0, count = SingletonFactory<ClassConfig>.Instance.GetMaxId(); i < count; i++)
+            //    {
+            //        key = (byte)(i + 1);
+            //        conf = SingletonFactory<ClassConfig>.Instance.GetDataById(key);
+            //        AddCommand(new Command(conf.name, key.ToString(), null, DoChooseClass, key), 1);
+            //    }
+            //}
 
             //AddCommand(new Command("分配点数", "Arrange", "A", DoArrangePoints), 2);
-            AddCommand(new Command("完成创建", "Finish","F", DoneCreateHero), 2);
-            AddCommand(new Command("重新投点", "Reroll","R", DoReRoll), 2);
-            AddCommand(new Command("重新创建", "Back","B", DoChoose), 2);
+
+
+            //AddCommand(new Command("完成创建", "Finish","F", DoneCreateHero), 2);
+            //AddCommand(new Command("重新投点", "Reroll","R", DoReRoll), 2);
+            //AddCommand(new Command("重新创建", "Back","B", DoChoose), 2);
         }
 
         //private void DoArrangePoints(object[] param)

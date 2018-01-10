@@ -6,7 +6,7 @@ namespace GameSample
     {
         private static HeroInfo mCreatingHero;
 
-        public static void DoChooseRace(object[] param)
+        public static enmCommandResult DoChooseRace(object[] param)
         {
             if (mCreatingHero == null)
                 mCreatingHero = new HeroInfo();
@@ -18,12 +18,15 @@ namespace GameSample
             }
             catch (Exception e)
             {
+                return enmCommandResult.FAILED;
             }
 
             mCreatingHero.SetRace(raceId);
+
+            return enmCommandResult.SUCCESS;
         }
 
-        public static void DoChooseClass(object[] param)
+        public static enmCommandResult DoChooseClass(object[] param)
         {
             byte classId = 0;
             try
@@ -32,12 +35,14 @@ namespace GameSample
             }
             catch (Exception e)
             {
+                return enmCommandResult.FAILED;
             }
 
             mCreatingHero.ResetAllClassLevel();
             mCreatingHero.SetClassLevel(classId, 1);
 
             //Roll();
+            return enmCommandResult.SUCCESS;
         }
     }
 }
