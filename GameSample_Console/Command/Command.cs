@@ -3,6 +3,8 @@ using System.Text;
 
 namespace GameSample
 {
+    public delegate void VOID_PARAM_DELEGATE(params object[] param);
+
     public class Command
     {
         private string  mName;

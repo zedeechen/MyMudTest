@@ -8,7 +8,6 @@ namespace GameSample
 {
     public class MoveCommand
     {
-
         public static void DoTeleportRoom(object[] param)
         {
             if (param == null || param.Length <= 0)
@@ -16,7 +15,7 @@ namespace GameSample
                 return;
             }
 
-            //this.EnterMap()
+            //TODO
         }
 
         public static void DoMove(object[] param)

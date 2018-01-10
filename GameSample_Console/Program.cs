@@ -9,12 +9,12 @@ namespace GameSample
         {
             SingletonFactory<GameController>.Instance.InitConfigs();
 
-            SingletonFactory<ScenarioController>.Instance.Init();
-            SingletonFactory<ScenarioController>.Instance.EnterMap(int.Parse(Properties.Resources.LoginMapID));//.EnterScenario(SCENARIO_TYPE.GLOBAL, 0);
+            SingletonFactory<CommandController>.Instance.Init();
+            SingletonFactory<MapController>.Instance.EnterMap(int.Parse(Properties.Resources.LoginMapID));//.EnterScenario(SCENARIO_TYPE.GLOBAL, 0);
 
             while (true)
             {
-                 SingletonFactory<ScenarioController>.Instance.ProcessUserInput(Console.ReadLine());
+                 SingletonFactory<CommandController>.Instance.ProcessUserInput(Console.ReadLine());
             }
         }
     }
