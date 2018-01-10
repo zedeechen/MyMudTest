@@ -95,6 +95,7 @@ namespace GameSample
                     Console.Write(keys[i]);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
+                Console.WriteLine();
             }
         }
 

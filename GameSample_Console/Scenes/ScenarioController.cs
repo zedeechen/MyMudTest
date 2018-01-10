@@ -111,20 +111,6 @@ namespace GameSample
 
         public void Init()
         {
-            //if (m_Scenarioes == null)
-            //{
-            //    m_Scenarioes = new Dictionary<SCENARIO_TYPE, IScenario>();
-            //}
-            //else
-            //{
-            //    m_Scenarioes.Clear();
-            //}
-
-            for (SCENARIO_TYPE type = SCENARIO_TYPE.BEGIN + 1; type < SCENARIO_TYPE.END; ++type)
-            {
-                //CreateScene(type);
-            }
-
             m_GlobalCommands = new List<Command>();
             m_GlobalCommands.Add(new Command("查看", "Look", "L", DoShowInfo));
             m_GlobalCommands.Add(new Command("向北走", "North", "N", DoMove, (int)enmDirectionType.NORTH));
@@ -210,28 +196,5 @@ namespace GameSample
         {
 
         }
-
-        //private IScenario CreateOrGetScene(SCENARIO_TYPE type)
-        //{
-        //    if (!m_Scenarioes.ContainsKey(type))
-        //    {
-        //        switch (type)
-        //        {
-        //            case SCENARIO_TYPE.GLOBAL:
-        //                m_Scenarioes[type] = new LoginScene();
-        //                break;
-        //            case SCENARIO_TYPE.CREATE_ROLE:
-        //                m_Scenarioes[type] = new CreateRoleScene();
-        //                break;
-        //            case SCENARIO_TYPE.SAFETY_AREA:
-        //                m_Scenarioes[type] = new SafetyAreaScene();
-        //                break;
-        //            case SCENARIO_TYPE.BATTLE:
-        //                m_Scenarioes[type] = new BattleScene();
-        //                break;
-        //        }
-        //    }
-        //    return m_Scenarioes[type];
-        //}
     }
 }

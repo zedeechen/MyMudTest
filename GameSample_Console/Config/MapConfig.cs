@@ -34,8 +34,6 @@ namespace GameSample
 
         [CSVElement("id")]
         public int id { get; set; }
-        [CSVElement("scene_type")]
-        public int sceneType { get; set; }
         [CSVElement("default_room")]
         public int defaultRoomId { get; set; }
         [CSVElement("room_list")]
