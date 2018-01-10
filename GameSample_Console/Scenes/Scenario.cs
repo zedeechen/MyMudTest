@@ -7,6 +7,8 @@ namespace GameSample
     public abstract class IScenario
     {
         private Dictionary<int,List<Command>> m_Commands;
+        private List<Room> m_Rooms;
+
         protected MapConfig m_MapConfig;
         protected RoomConfig m_currentRoomConfig;
         protected int m_Step;
@@ -17,7 +19,6 @@ namespace GameSample
         {
             m_Commands = new Dictionary<int, List<Command>>();
             m_Step = 0;
-            //InitCommands();
         }
 
         public void OnExit()
@@ -46,9 +47,8 @@ namespace GameSample
         {
             ResetScene();
             m_currentRoomConfig = SingletonFactory<RoomConfig>.Instance.GetDataById(targetRoomId);
-
-            InitObjects();
-            InitSpecialCommands();
+            
+            //InitSpecialCommands();
 
             ShowCommandList();
         }
@@ -72,17 +72,12 @@ namespace GameSample
             }
         }
 
-        private void InitObjects()
-        {
-
-        }
-
-        public void ExitToScene(SCENARIO_TYPE targetScene, int mapId = 0)
-        {
-            ResetScene();
+        //public void ExitToScene(SCENARIO_TYPE targetScene, int mapId = 0)
+        //{
+        //    ResetScene();
             
-            SingletonFactory<ScenarioController>.Instance.EnterScenario(targetScene, mapId);
-        }
+        //    SingletonFactory<ScenarioController>.Instance.EnterScenario(targetScene, mapId);
+        //}
 
         protected virtual void ResetScene()
         {
@@ -145,7 +140,7 @@ namespace GameSample
                     
                     for (int i = 0; i < _cmds.Count; ++i)
                     {
-                        Console.WriteLine(_cmds[i].DoPrint());
+                        _cmds[i].DoPrint();
                     }
                     //DoCommand(Console.ReadLine());
                     

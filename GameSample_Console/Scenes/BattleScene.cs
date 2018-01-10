@@ -31,7 +31,7 @@ namespace GameSample
 
         private void DoBack(object[] param)
         {
-            ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
+            //ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
         }
 
         private void DoAttack(object[] param)

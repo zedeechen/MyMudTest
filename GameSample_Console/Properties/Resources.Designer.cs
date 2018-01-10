@@ -64,7 +64,10 @@ namespace GameSample.Properties {
         ///   查找类似 id,name,hd,bab,skill_points
         ///1,Cleric,6,0.6,4
         ///2,Fighter,10,1,2
-        ///3,Wizard,4,0.4,6 的本地化字符串。
+        ///3,Wizard,4,0.4,6
+        ///4,Ranger,8,1,6
+        ///5,Barbarian,12,1,2
+        ///6,Monk,8,1,4 的本地化字符串。
         /// </summary>
         internal static string classes {
             get {
@@ -73,7 +76,9 @@ namespace GameSample.Properties {
         }
         
         /// <summary>
-        ///   查找类似 id,type,params 的本地化字符串。
+        ///   查找类似 id,type,params
+        ///1,1, 
+        ///2,2,  的本地化字符串。
         /// </summary>
         internal static string events {
             get {
@@ -82,7 +87,10 @@ namespace GameSample.Properties {
         }
         
         /// <summary>
-        ///   查找类似 id,room_list,default_room_id 的本地化字符串。
+        ///   查找类似 id,scene_type,room_list,default_room_id
+        ///1,1,1,1
+        ///2,2,2,2
+        ///3,3,, 的本地化字符串。
         /// </summary>
         internal static string map {
             get {
@@ -109,6 +117,16 @@ namespace GameSample.Properties {
         }
         
         /// <summary>
+        ///   查找类似 id,name,type
+        ///1,Tim Klan,1 的本地化字符串。
+        /// </summary>
+        internal static string objects {
+            get {
+                return ResourceManager.GetString("objects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 id,type,name,str_m,int_m,dex_m,con_m,wis_m,cha_m
         ///1,1,Human,0,0,0,0,0,0
         ///2,1,Dwarf,2,0,0,2,0,-2
@@ -124,7 +142,11 @@ namespace GameSample.Properties {
         }
         
         /// <summary>
-        ///   查找类似 id,desc,directions,objects,special_commands,event_id 的本地化字符串。
+        ///   查找类似 id,desc,directions,objects,special_commands
+        ///1,,0,,Fixed
+        ///2,,0,,Fixed
+        ///3,Test Desc,2,1,
+        ///99,,0,,New:N:1:0|Load:L:2:0 的本地化字符串。
         /// </summary>
         internal static string room {
             get {

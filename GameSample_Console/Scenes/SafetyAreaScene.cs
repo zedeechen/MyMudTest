@@ -30,7 +30,7 @@ namespace GameSample
         private void DoExplore(object[] param)
         {
             SingletonFactory<BattleController>.Instance.InitBattle();
-            ExitToScene(SCENARIO_TYPE.BATTLE);
+            //ExitToScene(SCENARIO_TYPE.BATTLE);
         }
     }
 }

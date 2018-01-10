@@ -166,7 +166,8 @@ namespace GameSample
         private void DoneCreateHero(object[] param)
         {
             SingletonFactory<GameController>.Instance.AddHero(mInfo);
-            ExitToScene(SCENARIO_TYPE.SAFETY_AREA);
+            //ExitToScene(SCENARIO_TYPE.SAFETY_AREA, 3);
+            SingletonFactory<ScenarioController>.Instance.EnterRecordedMap();
         }
 
         private void DoReRoll(object[] param)

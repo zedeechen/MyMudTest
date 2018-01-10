@@ -130,6 +130,9 @@
   <data name="names" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\names.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="objects" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\objects.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="race" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\race.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>

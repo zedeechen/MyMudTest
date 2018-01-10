@@ -2,3 +2,6 @@ id,name,hd,bab,skill_points
 1,Cleric,6,0.6,4
 2,Fighter,10,1,2
 3,Wizard,4,0.4,6
+4,Ranger,8,1,6
+5,Barbarian,12,1,2
+6,Monk,8,1,4

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace GameSample
 {
@@ -42,9 +43,9 @@ namespace GameSample
             mPrintDesc = sb.ToString();
         }
         
-        public string DoPrint()
+        public void DoPrint()
         {
-            return mPrintDesc;
+            Console.WriteLine(mPrintDesc);
         }
 
         internal bool TryOperateWithKey(string s, object[] param)
