@@ -99,7 +99,6 @@
     <Compile Include="Team\TeamInfo.cs" />
     <Compile Include="User\UserInfo.cs" />
     <Compile Include="Utils\CSVUtil.cs" />
-    <Compile Include="Scenes\CreateRoleScene.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
