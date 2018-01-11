@@ -38,8 +38,6 @@ namespace GameSample
         public int id { get; set; }
         [CSVElement("desc")]
         public string desc { get; set; }
-        [CSVElement("directions")]
-        public string directions { get; set; }
         [CSVElement("objects")]
         public string objects { get; set; }
         [CSVElement("special_commands")]

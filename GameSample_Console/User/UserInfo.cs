@@ -83,11 +83,11 @@ namespace GameSample
             }
         }
 
-        internal void DoPrint(ref StringBuilder sb)
+        internal void DoPrint()
         {
             for (int i = 0;i < mHeroes.Count; ++i)
             {
-                mHeroes[i].DoPrint(ref sb);
+                mHeroes[i].DoPrint();
             }
         }
     }

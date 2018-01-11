@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GameSample
 {
@@ -43,6 +44,23 @@ namespace GameSample
 
             //Roll();
             return enmCommandResult.SUCCESS;
+        }
+
+        private static Dictionary<enmPropType, int> _bp;
+        public static void Roll()
+        {
+            _bp = new Dictionary<enmPropType, int>();
+            for (enmPropType type = enmPropType.BP_MIN + 1; type < enmPropType.BP_MAX; ++type)
+            {
+                _bp[type] = GameLogic.Dice(3, 6);
+            }
+            mCreatingHero.InitBasePoints(_bp);
+        }
+
+        public static void DoPrint()
+        {
+            if (mCreatingHero != null)
+                mCreatingHero.DoPrint();
         }
     }
 }

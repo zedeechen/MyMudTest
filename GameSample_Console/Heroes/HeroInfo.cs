@@ -215,17 +215,14 @@ namespace GameSample
         }
         public IReadOnlyDictionary<byte, PropReference<int>> MClassLevels { get { return this.mClassModule.MClassLevels; } }
 
-        public void DoPrint(ref StringBuilder sb)
+        public void DoPrint()
         {
-            if (sb == null)
-                sb = new StringBuilder();
-
-            sb.AppendLine(string.Format("{0} ({1} {2})", Name, GetRace(), GetMainClassName()));
-            mClassModule.DoPrintExp(ref sb);
+            Console.WriteLine(string.Format("{0} ({1} {2})", Name, GetRace(), GetMainClassName()));
+            mClassModule.DoPrintExp();
 
             for (enmPropType type = enmPropType.BP_MIN + 1; type < enmPropType.BP_MAX; ++type)
             {
-                sb.AppendLine(string.Format("{0} {1} ({2})", type, this.GetBaseProp(type), this.GetBasePropMod(type)));
+                Console.WriteLine(string.Format("{0} {1} ({2})", type, this.GetBaseProp(type), this.GetBasePropMod(type)));
             }
         }
 

@@ -82,7 +82,15 @@ namespace GameSample
             ConsoleColor defaultColor = Console.ForegroundColor;
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(m_Config.desc);
+            if (m_Config.desc.ToLower().IndexOf("**") >= 0)
+            {
+                SingletonFactory<CommandController>.Instance.ProcessRoomPreProcess(m_Config.desc.Substring(2).ToLower());
+            }
+            else
+            {
+                Console.WriteLine(m_Config.desc);
+            }
+            
 
             if (m_Objects != null)
             {

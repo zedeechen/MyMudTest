@@ -107,15 +107,37 @@ namespace GameSample
                                 break;
                         }
                         break;
-                    case "info":
-
-                        break;
                 }
             }
             else {
                 command = GameUtil.ConvertParamsToCommand(commandParam);
                 command.SetCommandOnSucess(commandOnSuccess);
                 m_Commands.Add(command);
+            }
+        }
+
+        internal void ProcessRoomPreProcess(string paramString)
+        {
+            string[] params_ = paramString.Split(CSVUtilBase.SYMBOL_FOURTH);// SYMBOL_SECOND);
+            for (int i = 0;i < params_.Length;++i)
+            {
+                string[] param_ = params_[i].Split(CSVUtilBase.SYMBOL_SECOND);
+                if (param_.Length < 2)
+                    continue;
+                switch (param_[0])
+                {
+                    case "cr":
+                        switch (param_[1])
+                        {
+                            case "roll":
+                                CreateRoleCommand.Roll();
+                                break;
+                            case "info":
+                                CreateRoleCommand.DoPrint();
+                                break;
+                        }
+                        break;
+                }
             }
         }
 
@@ -155,9 +177,8 @@ namespace GameSample
         {
             if (SingletonFactory<UserInfo>.Instance.MTeamCreated)
             {
-                StringBuilder sb = null;
-                SingletonFactory<UserInfo>.Instance.DoPrint(ref sb);
-                Console.WriteLine(sb.ToString());
+                SingletonFactory<UserInfo>.Instance.DoPrint();
+
                 return enmCommandResult.SUCCESS;
             }
             return enmCommandResult.IGNORE;

@@ -146,12 +146,9 @@ namespace GameSample
             return config.name;
         }
 
-        public void DoPrintExp(ref StringBuilder sb)
+        public void DoPrintExp()
         {
-            if (sb == null)
-                sb = new StringBuilder();
-
-            sb.AppendLine(string.Format("XP : {0}/{1}", mExp, GameLogic.GetExpForNextLevel(TotalLevel + 1)));
+            Console.WriteLine(string.Format("XP : {0}/{1}", mExp, GameLogic.GetExpForNextLevel(TotalLevel + 1)));
         }
         #endregion
 
