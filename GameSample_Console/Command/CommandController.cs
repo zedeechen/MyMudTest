@@ -28,7 +28,7 @@ namespace GameSample
 
         public void ProcessUserInput(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input) || input.IndexOf(".") > 0)
                 return;
 
             string[] arr = input.Split(' ');
@@ -81,7 +81,11 @@ namespace GameSample
                 return enmCommandResult.IGNORE;
 
             List<ENM_PARAM_DELEGATE> list_;
-            if (!m_SystemCommands.TryGetValue(key, out list_) || list_ == null || list_.Count == 0)
+            if (!m_SystemCommands.TryGetValue(key, out list_))
+            {
+                return enmCommandResult.IGNORE;
+            }
+            if (list_ == null || list_.Count == 0)
             {
                 return enmCommandResult.IGNORE;
             }
@@ -89,7 +93,7 @@ namespace GameSample
             return list_[list_.Count - 1](param);
         }
 
-        public void BindCommand(string commParam, ref List<Command> m_Commands)
+        public void BindCommand(string commParam, ref List<Command> commands, ref List<Command> commandsOnEnter)
         {
             if (string.IsNullOrEmpty(commParam))
                 return;
@@ -112,49 +116,16 @@ namespace GameSample
             }
 
             string[] commandParam = param[0].Split(CSVUtilBase.SYMBOL_SECOND);
-            if (commandParam.Length == 2)
+
+            command = GameUtil.ConvertParamsToCommand(commandParam);
+            command.SetCommandOnSucess(commandOnSuccess);
+            if (command.MRunOnEnterRoom)
             {
-                switch (commandParam[0].ToLower())
-                {
-                    case "list":
-                        switch (commandParam[1].ToLower())
-                        {
-                            case "race":
-                                {
-                                    RaceConfig conf;
-                                    byte key;
-                                    for (int i = 0, count = SingletonFactory<RaceConfig>.Instance.GetMaxId(1); i < count; i++)
-                                    {
-                                        key = (byte)(i + 1);
-                                        conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
-                                        //command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseRace, key);
-                                        //command.SetCommandOnSucess(commandOnSuccess);
-                                        //m_Commands.Add(command);
-                                    }
-                                }
-                                break;
-                            case "class":
-                                {
-                                    ClassConfig conf;
-                                    byte key;
-                                    for (int i = 0, count = SingletonFactory<ClassConfig>.Instance.GetMaxId(); i < count; i++)
-                                    {
-                                        key = (byte)(i + 1);
-                                        conf = SingletonFactory<ClassConfig>.Instance.GetDataById(key);
-                                        //command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseClass, key);
-                                        //command.SetCommandOnSucess(commandOnSuccess);
-                                        //m_Commands.Add(command);
-                                    }
-                                }
-                                break;
-                        }
-                        break;
-                }
+                commandsOnEnter.Add(command);
             }
-            else {
-                command = GameUtil.ConvertParamsToCommand(commandParam);
-                command.SetCommandOnSucess(commandOnSuccess);
-                m_Commands.Add(command);
+            else
+            {   
+                commands.Add(command);
             }
         }
 

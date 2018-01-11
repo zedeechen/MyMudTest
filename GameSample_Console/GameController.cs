@@ -22,6 +22,7 @@ namespace GameSample
         {
             SingletonFactory<DataCommand>.Instance.Init();
             SingletonFactory<MoveCommand>.Instance.Init();
+            SingletonFactory<CreateRoleCommand>.Instance.Init();
 
         }
 

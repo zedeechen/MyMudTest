@@ -38,23 +38,47 @@ namespace GameSample
                 command = new Command(conf.name, key.ToString(), null, "crc.cc", key);
                 command.SetCommandOnSucess(commandOnSuccess);
                 mTempCommand.Add(command);
-                //RegisterCommand(key.ToString(), DoChooseClass);
+
+                command.DoPrint();
+
+                RegisterCommand(key.ToString(), DoExecuteTempCommands);
+            }
+            return enmCommandResult.IGNORE;
+        }
+
+        private enmCommandResult DoExecuteTempCommands(object[] param)
+        {
+            if (param != null && param.Length > 0 && mTempCommand != null)
+            {
+                int index = int.Parse(param[0].ToString());
+
+                mTempCommand[index].Execute(null);
             }
             return enmCommandResult.IGNORE;
         }
 
         private enmCommandResult DoGenerateRaceList(object[] param)
         {
+            if (mTempCommand == null)
+                mTempCommand = new List<Command>();
+            else
+                mTempCommand.Clear();
+
             RaceConfig conf;
             byte key;
+            Command command, commandOnSuccess = null;
+
             for (int i = 0, count = SingletonFactory<RaceConfig>.Instance.GetMaxId(1); i < count; i++)
             {
                 key = (byte)(i + 1);
                 conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
-                //command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseRace, key);
-                //command.SetCommandOnSucess(commandOnSuccess);
-                //m_Commands.Add(command);
-                RegisterCommand(key.ToString(), DoChooseRace);
+                command = new Command(conf.name, key.ToString(), null, "crc.cr", key);
+                command.SetCommandOnSucess(commandOnSuccess);
+                mTempCommand.Add(command);
+
+                command.DoPrint();
+
+                RegisterCommand(key.ToString(), DoExecuteTempCommands);
             }
             return enmCommandResult.IGNORE;
         }

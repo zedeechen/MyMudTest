@@ -10,6 +10,7 @@ namespace GameSample
     public class Room
     {
         private List<Command> m_Commands;
+        private List<Command> m_CommandsOnEnter;
         public IReadOnlyList<Command> CommandList { get { return m_Commands; } }
         private Dictionary<string, List<Objects>> m_Objects;
         private RoomConfig m_Config;
@@ -37,13 +38,18 @@ namespace GameSample
                 return;
             }
             string[] commands = m_Config.specialCommands.Split(CSVUtilBase.SYMBOL_FOURTH);
-            if (commands.Length > 0 && m_Commands == null)
-                m_Commands = new List<Command>();
+            if (commands.Length > 0)
+            {
+                if (m_Commands == null)
+                    m_Commands = new List<Command>();
+                if (m_CommandsOnEnter == null)
+                    m_CommandsOnEnter = new List<Command>();
+            }
 
             m_Commands.Clear();
             for (int i = 0; i < commands.Length; ++i)
             {
-                SingletonFactory<CommandController>.Instance.BindCommand(commands[i], ref m_Commands);
+                SingletonFactory<CommandController>.Instance.BindCommand(commands[i], ref m_Commands, ref m_CommandsOnEnter);
             }
         }
 
@@ -90,7 +96,14 @@ namespace GameSample
             {
                 Console.WriteLine(m_Config.desc);
             }
-            
+
+            if (m_CommandsOnEnter != null)
+            {
+                for (int i = 0;i < m_CommandsOnEnter.Count;++i)
+                {
+                    m_CommandsOnEnter[i].Execute(null);
+                }
+            }            
 
             if (m_Objects != null)
             {

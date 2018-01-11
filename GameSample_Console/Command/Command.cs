@@ -16,6 +16,8 @@ namespace GameSample
         private Command mCommandOnSuccess;
         //private object[] mParamOnSuccess;
 
+        public bool MRunOnEnterRoom { get; private set; }
+
         public Command(string name, string key, string shortKey, string systemKey, params object[] param)
         {
             mName = name;
@@ -27,14 +29,19 @@ namespace GameSample
             
             StringBuilder sb = new StringBuilder();
             sb.Append(mName);
-            if (mKey != null)
+            if (!string.IsNullOrEmpty(mKey))
             {
                 sb.AppendFormat("({0}", mKey);
-                if (mShortKey != null)
+                if (!string.IsNullOrEmpty(mShortKey))
                 {
                     sb.AppendFormat("/{0}", mShortKey);
                 }
                 sb.Append(")");
+                MRunOnEnterRoom = false;
+            }
+            else
+            {
+                MRunOnEnterRoom = true;
             }
             
             mPrintDesc = sb.ToString();
@@ -45,7 +52,7 @@ namespace GameSample
             Console.WriteLine(mPrintDesc);
         }
 
-        private void Execute(object[] param)
+        public void Execute(object[] param)
         {
             if (mFixedParam != null)
                 param = mFixedParam;
