@@ -8,6 +8,7 @@ namespace GameSample
     {
         private HeroInfo mCreatingHero;
         private Dictionary<enmPropType, int> _bp;
+        private List<Command> mTempCommand;
 
         protected override void RegisterCommands()
         {
@@ -21,16 +22,23 @@ namespace GameSample
 
         private enmCommandResult DoGenerateClassList(object[] param)
         {
+            if (mTempCommand == null)
+                mTempCommand = new List<Command>();
+            else
+                mTempCommand.Clear();
+
             ClassConfig conf;
             byte key;
+            Command command, commandOnSuccess = null;
+
             for (int i = 0, count = SingletonFactory<ClassConfig>.Instance.GetMaxId(); i < count; i++)
             {
                 key = (byte)(i + 1);
                 conf = SingletonFactory<ClassConfig>.Instance.GetDataById(key);
-                //command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseClass, key);
-                //command.SetCommandOnSucess(commandOnSuccess);
-                //m_Commands.Add(command);
-                RegisterCommand(key.ToString(), DoChooseClass);
+                command = new Command(conf.name, key.ToString(), null, "crc.cc", key);
+                command.SetCommandOnSucess(commandOnSuccess);
+                mTempCommand.Add(command);
+                //RegisterCommand(key.ToString(), DoChooseClass);
             }
             return enmCommandResult.IGNORE;
         }

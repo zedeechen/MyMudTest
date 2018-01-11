@@ -109,7 +109,7 @@ namespace GameSample
                 else {
                     commandOnSuccess = new Command(null, null, null, paramSuccess[0], null);
                 }
-            }                   
+            }
 
             string[] commandParam = param[0].Split(CSVUtilBase.SYMBOL_SECOND);
             if (commandParam.Length == 2)
