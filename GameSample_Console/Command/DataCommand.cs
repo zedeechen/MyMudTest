@@ -7,15 +7,24 @@ using ZDMMO;
 
 namespace GameSample
 {
-    public class DataCommand
+    public class DataCommand : ICommandGroup
     {
         private static string m_DefaultFileName = null;
-        public static enmCommandResult DoNewGame(object[] param)
+
+        protected override void RegisterCommands()
+        {
+            RegisterCommand("dc.new", DoNewGame);
+            RegisterCommand("dc.load", DoLoadGame);
+            RegisterCommand("dc.save", DoSaveGame);
+            RegisterCommand("dc.exit", DoExit);
+        }
+
+        private enmCommandResult DoNewGame(object[] param)
         {
             SingletonFactory<MapController>.Instance.EnterMap(int.Parse(Properties.Resources.CreateRoleMapID));
             return enmCommandResult.SUCCESS;
         }
-        public static enmCommandResult DoLoadGame(object[] param)
+        private enmCommandResult DoLoadGame(object[] param)
         {
             string fileName = null;
             if (param.Length > 0)
@@ -34,7 +43,7 @@ namespace GameSample
 
         }
 
-        public static enmCommandResult DoSaveGame(object[] param)
+        private enmCommandResult DoSaveGame(object[] param)
         {
             string fileName = null;
             if (param.Length > 0)
@@ -46,13 +55,13 @@ namespace GameSample
             return enmCommandResult.FAILED;
         }
 
-        public static enmCommandResult DoExit(object[] param)
+        private enmCommandResult DoExit(object[] param)
         {
             Environment.Exit(0);
             return enmCommandResult.IGNORE;
         }
 
-        private static bool SaveGame(string fileName)
+        private bool SaveGame(string fileName)
         {
             if (!string.IsNullOrEmpty(fileName))
                 fileName = m_DefaultFileName;
@@ -68,7 +77,7 @@ namespace GameSample
             return false;
         }
 
-        private static bool LoadGame(string fileName)
+        private bool LoadGame(string fileName)
         {
             SingletonFactory<GameController>.Instance.CreateNewGame();
 
@@ -88,5 +97,7 @@ namespace GameSample
             }
             return false;
         }
+        
+        
     }
 }

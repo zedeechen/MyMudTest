@@ -84,7 +84,7 @@ namespace GameSample
             Console.ForegroundColor = ConsoleColor.White;
             if (m_Config.desc.ToLower().IndexOf("**") >= 0)
             {
-                SingletonFactory<CommandController>.Instance.ProcessRoomPreProcess(m_Config.desc.Substring(2).ToLower());
+                //SingletonFactory<CommandController>.Instance.ProcessRoomPreProcess(m_Config.desc.Substring(2).ToLower());
             }
             else
             {

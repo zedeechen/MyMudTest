@@ -40,6 +40,8 @@ namespace GameSample
         public string desc { get; set; }
         [CSVElement("objects")]
         public string objects { get; set; }
+        [CSVElement("prev_commands")]
+        public string preloadCommands { get; set; }
         [CSVElement("special_commands")]
         public string specialCommands { get; set; }
     }

@@ -13,7 +13,7 @@ namespace GameSample
         {
             if (param == null)
                 return null;
-            return new Command(param[0], param[0], param[1], SingletonFactory<CommandController>.Instance.DoSpecialCommandWithType(int.Parse(param[2])));
+            return new Command(param[0], param[0], param[1], param[2]);
         }
 
         public static Room ConvertParamsToRoom(string[] param)
@@ -31,9 +31,9 @@ namespace GameSample
                     room.InitDirections(param[1].Split(CSVUtilBase.SYMBOL_THIRD));
                 }
                 return room;
-            }catch(Exception)
+            }catch(Exception e)
             {
-                Console.WriteLine("[ConvertParamsToRoom] Illegal room id - " + param[0].ToString());
+                Console.WriteLine(string.Format("[ConvertParamsToRoom] Illegal room id - {0} ({1})", param[0], e.Message));
                 return null;
             }
         }

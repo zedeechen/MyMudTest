@@ -62,6 +62,7 @@
     <Compile Include="Command\CommandController.cs" />
     <Compile Include="Command\CreateRoleCommand.cs" />
     <Compile Include="Command\DataCommand.cs" />
+    <Compile Include="Command\ICommandGroup.cs" />
     <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Config\EventConfig.cs" />
     <Compile Include="Config\MapConfig.cs" />
@@ -99,7 +100,6 @@
     <Compile Include="Team\TeamInfo.cs" />
     <Compile Include="User\UserInfo.cs" />
     <Compile Include="Utils\CSVUtil.cs" />
-    <Compile Include="Scenes\CreateRoleScene.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

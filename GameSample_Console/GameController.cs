@@ -18,9 +18,12 @@ namespace GameSample
             }
         }
 
-        
+        internal void InitCommandGroups()
+        {
+            SingletonFactory<DataCommand>.Instance.Init();
+            SingletonFactory<MoveCommand>.Instance.Init();
 
-        
+        }
 
         public void InitConfigs()
         {

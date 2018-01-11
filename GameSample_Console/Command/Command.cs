@@ -9,19 +9,20 @@ namespace GameSample
         private string  mName;
         private string  mKey;
         private string  mShortKey;
-        private ENM_PARAM_DELEGATE mOperation;
+        private string mSystemKey;// ENM_PARAM_DELEGATE mOperation;
         private object[] mFixedParam;
         private string mPrintDesc;
 
         private Command mCommandOnSuccess;
         //private object[] mParamOnSuccess;
 
-        public Command(string name, string key, string shortKey, ENM_PARAM_DELEGATE oper, params object[] param)
+        public Command(string name, string key, string shortKey, string systemKey, params object[] param)
         {
             mName = name;
             mKey = key;
             mShortKey = shortKey;
-            mOperation = oper;
+            //mOperation = oper;
+            mSystemKey = systemKey;
             mFixedParam = param;
             
             StringBuilder sb = new StringBuilder();
@@ -49,7 +50,7 @@ namespace GameSample
             if (mFixedParam != null)
                 param = mFixedParam;
 
-            switch (mOperation(param))
+            switch (SingletonFactory<CommandController>.Instance.ExecuteCommand(mSystemKey, param))
             {
                 case enmCommandResult.FAILED:
                     SingletonFactory<MapController>.Instance.ShowCurrentMapInfo();
@@ -66,7 +67,7 @@ namespace GameSample
             if ((mKey != null && mKey.ToLower() == s.ToLower())
                 || ((mShortKey != null && mShortKey.ToLower() == s.ToLower())))
             {
-                if (mOperation != null)
+                if (!string.IsNullOrEmpty(mSystemKey))
                 {
                     Execute(param);
                     return true;

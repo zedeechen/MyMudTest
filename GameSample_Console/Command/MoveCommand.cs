@@ -7,16 +7,23 @@ using ZDMMO;
 
 namespace GameSample
 {
-    public class MoveCommand
+    public class MoveCommand : ICommandGroup
     {
-        public static enmCommandResult DoTeleportRoom(object[] param)
+        protected override void RegisterCommands()
+        {
+            RegisterCommand("mc.tel", DoTeleportRoom);
+            RegisterCommand("mc.cm", DoChangeMap);
+            RegisterCommand("mc.mv", DoMove);
+        }
+
+        private enmCommandResult DoTeleportRoom(object[] param)
         {            
             if (SingletonFactory <MapController>.Instance.TryTeleport())
                 return enmCommandResult.SUCCESS;
             return enmCommandResult.IGNORE;
         }
 
-        public static enmCommandResult DoChangeMap(object[] param)
+        private enmCommandResult DoChangeMap(object[] param)
         {
             if (param == null || param.Length <= 0)
             {
@@ -28,7 +35,7 @@ namespace GameSample
             return enmCommandResult.IGNORE;
         }
 
-        public static enmCommandResult DoMove(object[] param)
+        private enmCommandResult DoMove(object[] param)
         {
             if (param == null || param.Length < 0)
                 return enmCommandResult.FAILED;
@@ -40,5 +47,7 @@ namespace GameSample
 
             return enmCommandResult.SUCCESS;
         }
+
+        
     }
 }
