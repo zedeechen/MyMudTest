@@ -1,5 +1,2 @@
-
-GameSample_Console/obj/Debug/GameSample_Console.exe
-GameSample_Console/obj/Debug/GameSample_Console.pdb
-GameSample_Console/bin/Debug/GameSample_Console.vshost.exe.manifest
 .vs/MyMMOFramework/v14/.suo
+GameSample_Console/bin/Debug/*
