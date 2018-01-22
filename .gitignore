@@ -1,2 +1,6 @@
 .vs/MyMMOFramework/v14/.suo
 GameSample_Console/bin/Debug/*
+GameSample_Console/obj/*
+ZDMMO/bin/*
+ZDMMO/obj/*
+.vs/MyMMOFramework/v14/.suo

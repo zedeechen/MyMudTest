@@ -1,6 +1,6 @@
 id,desc,objects,special_commands
-1001,,,New:N:1:0*4:2|Load:L:2:0*4:3
-2001,Choose Race:,,List:Race*3
-2002,Choose Class:,,List:Class*3
-2003,**CR:Roll|CR:Info,,Confirm:C:4:0*4:3|Reroll:R:5:0|Back:B:0:0*4:2
-3001,Test Desc,1,
+1001,,,New:N:dc.new:0*mv.cm:2|Load:L:dc.load:0*mv.cm:3
+2001,Choose Race:,,::crc.lr:mv.tel
+2002,Choose Class:,,::crc.lc:mv.tel
+2003,,,::crc.roll|::cr.pr|Confirm:C::0*mc.cm:3|Reroll:R::0|Back:B::0*mv.cm:2
+3001,Test Desc,, 

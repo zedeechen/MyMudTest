@@ -9,31 +9,39 @@ namespace GameSample
         private string  mName;
         private string  mKey;
         private string  mShortKey;
-        private ENM_PARAM_DELEGATE mOperation;
+        private string mSystemKey;// ENM_PARAM_DELEGATE mOperation;
         private object[] mFixedParam;
         private string mPrintDesc;
 
         private Command mCommandOnSuccess;
         //private object[] mParamOnSuccess;
 
-        public Command(string name, string key, string shortKey, ENM_PARAM_DELEGATE oper, params object[] param)
+        public bool MRunOnEnterRoom { get; private set; }
+
+        public Command(string name, string key, string shortKey, string systemKey, params object[] param)
         {
             mName = name;
             mKey = key;
             mShortKey = shortKey;
-            mOperation = oper;
+            //mOperation = oper;
+            mSystemKey = systemKey;
             mFixedParam = param;
             
             StringBuilder sb = new StringBuilder();
             sb.Append(mName);
-            if (mKey != null)
+            if (!string.IsNullOrEmpty(mKey))
             {
                 sb.AppendFormat("({0}", mKey);
-                if (mShortKey != null)
+                if (!string.IsNullOrEmpty(mShortKey))
                 {
                     sb.AppendFormat("/{0}", mShortKey);
                 }
                 sb.Append(")");
+                MRunOnEnterRoom = false;
+            }
+            else
+            {
+                MRunOnEnterRoom = true;
             }
             
             mPrintDesc = sb.ToString();
@@ -44,12 +52,12 @@ namespace GameSample
             Console.WriteLine(mPrintDesc);
         }
 
-        private void Execute(object[] param)
+        public void Execute(object[] param)
         {
             if (mFixedParam != null)
                 param = mFixedParam;
 
-            switch (mOperation(param))
+            switch (SingletonFactory<CommandController>.Instance.ExecuteCommand(mSystemKey, param))
             {
                 case enmCommandResult.FAILED:
                     SingletonFactory<MapController>.Instance.ShowCurrentMapInfo();
@@ -66,7 +74,7 @@ namespace GameSample
             if ((mKey != null && mKey.ToLower() == s.ToLower())
                 || ((mShortKey != null && mShortKey.ToLower() == s.ToLower())))
             {
-                if (mOperation != null)
+                if (!string.IsNullOrEmpty(mSystemKey))
                 {
                     Execute(param);
                     return true;

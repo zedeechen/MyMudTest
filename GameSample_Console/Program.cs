@@ -8,6 +8,8 @@ namespace GameSample
         static void Main(string[] args)
         {
             SingletonFactory<GameController>.Instance.InitConfigs();
+            SingletonFactory<GameController>.Instance.InitCommandGroups();
+
             SingletonFactory<CommandController>.Instance.Init();
 
             SingletonFactory<MapController>.Instance.EnterMap(int.Parse(Properties.Resources.LoginMapID));//.EnterScenario(SCENARIO_TYPE.GLOBAL, 0);

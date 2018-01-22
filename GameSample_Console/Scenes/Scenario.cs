@@ -111,7 +111,7 @@ namespace GameSample
         {
             string[] commandParams = commandParam.Split(CSVUtilBase.SYMBOL_SECOND);
 
-            AddCommand(new Command(commandParams[0], commandParams[0], commandParams[1], SingletonFactory<CommandController>.Instance.DoSpecialCommandWithType(int.Parse(commandParams[2]))), int.Parse(commandParams[3]));
+            AddCommand(new Command(commandParams[0], commandParams[0], commandParams[1], commandParams[2]), int.Parse(commandParams[3]));
         }
 
         protected void NextStep()

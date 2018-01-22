@@ -16,20 +16,19 @@ namespace GameSample
         public void Init()
         {
             m_GlobalCommands = new List<Command>();
-            m_GlobalCommands.Add(new Command("查看", "Look", "L", DoShowInfo));
-            m_GlobalCommands.Add(new Command("向北走", "North", "N", MoveCommand.DoMove, (int)enmDirectionType.NORTH));
-            m_GlobalCommands.Add(new Command("向南走", "South", "S", MoveCommand.DoMove, (int)enmDirectionType.SOUTH));
-            m_GlobalCommands.Add(new Command("向东走", "East", "E", MoveCommand.DoMove, (int)enmDirectionType.EAST));
-            m_GlobalCommands.Add(new Command("向西走", "West", "W", MoveCommand.DoMove, (int)enmDirectionType.WEST));
-
-            m_GlobalCommands.Add(new Command("保存游戏", "Save", "S", DataCommand.DoSaveGame));
-            m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DataCommand.DoExit));
-            m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
+            //m_GlobalCommands.Add(new Command("查看", "Look", "L", DoShowInfo));
+            //m_GlobalCommands.Add(new Command("向北走", "North", "N", MoveCommand.DoMove, (int)enmDirectionType.NORTH));
+            //m_GlobalCommands.Add(new Command("向南走", "South", "S", MoveCommand.DoMove, (int)enmDirectionType.SOUTH));
+            //m_GlobalCommands.Add(new Command("向东走", "East", "E", MoveCommand.DoMove, (int)enmDirectionType.EAST));
+            //m_GlobalCommands.Add(new Command("向西走", "West", "W", MoveCommand.DoMove, (int)enmDirectionType.WEST));
+            
+            //m_GlobalCommands.Add(new Command("退出游戏", "Exit", "X", DataCommand.DoExit));
+            //m_GlobalCommands.Add(new Command("帮助", "Help", "H", DoHelp));
         }
 
         public void ProcessUserInput(string input)
         {
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrEmpty(input) || input.IndexOf(".") > 0)
                 return;
 
             string[] arr = input.Split(' ');
@@ -47,7 +46,54 @@ namespace GameSample
             }
         }
 
-        public void BindCommand(string commParam, ref List<Command> m_Commands)
+        private Dictionary<string, List<ENM_PARAM_DELEGATE>> m_SystemCommands;
+        internal void RegisterSystemCommand(string key, ENM_PARAM_DELEGATE func)
+        {
+            if (m_SystemCommands == null)
+                m_SystemCommands = new Dictionary<string, List<ENM_PARAM_DELEGATE>>();
+
+            List<ENM_PARAM_DELEGATE> list_;
+            if (!m_SystemCommands.TryGetValue(key, out list_))
+            {
+                list_ = new List<ENM_PARAM_DELEGATE>();
+                m_SystemCommands[key] = list_;
+            }
+
+            list_.Add(func);
+        }
+
+        internal void UnregisterSystemCommand(string key, ENM_PARAM_DELEGATE func)
+        {
+            if (m_SystemCommands == null)
+                m_SystemCommands = new Dictionary<string, List<ENM_PARAM_DELEGATE>>();
+
+            List<ENM_PARAM_DELEGATE> list_;
+            if (!m_SystemCommands.TryGetValue(key, out list_))
+            {
+                return;
+            }
+            list_.Remove(func);
+        }
+
+        internal enmCommandResult ExecuteCommand(string key, object[] param)
+        {
+            if (m_SystemCommands == null)
+                return enmCommandResult.IGNORE;
+
+            List<ENM_PARAM_DELEGATE> list_;
+            if (!m_SystemCommands.TryGetValue(key, out list_))
+            {
+                return enmCommandResult.IGNORE;
+            }
+            if (list_ == null || list_.Count == 0)
+            {
+                return enmCommandResult.IGNORE;
+            }
+
+            return list_[list_.Count - 1](param);
+        }
+
+        public void BindCommand(string commParam, ref List<Command> commands, ref List<Command> commandsOnEnter)
         {
             if (string.IsNullOrEmpty(commParam))
                 return;
@@ -62,101 +108,69 @@ namespace GameSample
                 string[] paramSuccess = param[1].Split(CSVUtilBase.SYMBOL_SECOND);
                 if (paramSuccess.Length > 1)
                 {
-                    commandOnSuccess = new Command(null, null, null, DoSpecialCommandWithType(int.Parse(paramSuccess[0])), paramSuccess[1]);//TODO
+                    commandOnSuccess = new Command(null, null, null, paramSuccess[0], paramSuccess[1]);
                 }
                 else {
-                    commandOnSuccess = new Command(null, null, null, DoSpecialCommandWithType(int.Parse(paramSuccess[0])), null);
+                    commandOnSuccess = new Command(null, null, null, paramSuccess[0], null);
                 }
-            }                   
+            }
 
             string[] commandParam = param[0].Split(CSVUtilBase.SYMBOL_SECOND);
-            if (commandParam.Length == 2)
+
+            command = GameUtil.ConvertParamsToCommand(commandParam);
+            command.SetCommandOnSucess(commandOnSuccess);
+            if (command.MRunOnEnterRoom)
             {
-                switch (commandParam[0].ToLower())
-                {
-                    case "list":
-                        switch (commandParam[1].ToLower())
-                        {
-                            case "race":
-                                {
-                                    RaceConfig conf;
-                                    byte key;
-                                    for (int i = 0, count = SingletonFactory<RaceConfig>.Instance.GetMaxId(1); i < count; i++)
-                                    {
-                                        key = (byte)(i + 1);
-                                        conf = SingletonFactory<RaceConfig>.Instance.GetDataById(key);
-                                        command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseRace, key);
-                                        command.SetCommandOnSucess(commandOnSuccess);
-                                        m_Commands.Add(command);
-                                    }
-                                }
-                                break;
-                            case "class":
-                                {
-                                    ClassConfig conf;
-                                    byte key;
-                                    for (int i = 0, count = SingletonFactory<ClassConfig>.Instance.GetMaxId(); i < count; i++)
-                                    {
-                                        key = (byte)(i + 1);
-                                        conf = SingletonFactory<ClassConfig>.Instance.GetDataById(key);
-                                        command = new Command(conf.name, key.ToString(), null, CreateRoleCommand.DoChooseClass, key);
-                                        command.SetCommandOnSucess(commandOnSuccess);
-                                        m_Commands.Add(command);
-                                    }
-                                }
-                                break;
-                        }
-                        break;
-                }
+                commandsOnEnter.Add(command);
             }
-            else {
-                command = GameUtil.ConvertParamsToCommand(commandParam);
-                command.SetCommandOnSucess(commandOnSuccess);
-                m_Commands.Add(command);
+            else
+            {   
+                commands.Add(command);
             }
         }
 
-        internal void ProcessRoomPreProcess(string paramString)
-        {
-            string[] params_ = paramString.Split(CSVUtilBase.SYMBOL_FOURTH);// SYMBOL_SECOND);
-            for (int i = 0;i < params_.Length;++i)
-            {
-                string[] param_ = params_[i].Split(CSVUtilBase.SYMBOL_SECOND);
-                if (param_.Length < 2)
-                    continue;
-                switch (param_[0])
-                {
-                    case "cr":
-                        switch (param_[1])
-                        {
-                            case "roll":
-                                CreateRoleCommand.Roll();
-                                break;
-                            case "info":
-                                CreateRoleCommand.DoPrint();
-                                break;
-                        }
-                        break;
-                }
-            }
-        }
+        //internal void ProcessRoomPreProcess(string paramString)
+        //{
+        //    string[] params_ = paramString.Split(CSVUtilBase.SYMBOL_FOURTH);// SYMBOL_SECOND);
+        //    for (int i = 0;i < params_.Length;++i)
+        //    {
+        //        string[] param_ = params_[i].Split(CSVUtilBase.SYMBOL_SECOND);
+        //        if (param_.Length < 2)
+        //            continue;
+        //        switch (param_[0])
+        //        {
+        //            case "cr":
+        //                switch (param_[1])
+        //                {
+        //                    case "roll":
+        //                        CreateRoleCommand.Roll();
+        //                        break;
+        //                    case "info":
+        //                        CreateRoleCommand.DoPrint();
+        //                        break;
+        //                }
+        //                break;
+        //        }
+        //    }
+        //}
 
-        public ENM_PARAM_DELEGATE DoSpecialCommandWithType(int type)
-        {
-            switch (type)
-            {
-                case 1:
-                    return DataCommand.DoNewGame;
-                case 2:
-                    return DataCommand.DoLoadGame;
-                case 3:
-                    return MoveCommand.DoTeleportRoom;
-                case 4:
-                    return MoveCommand.DoChangeMap;
-                default:
-                    return null;
-            }
-        }
+        //public ENM_PARAM_DELEGATE DoSpecialCommandWithType(int type)
+        //{
+        //    switch (type)
+        //    {
+        //        case 1:
+                    
+        //            return DataCommand.DoNewGame;
+        //        case 2:
+        //            return DataCommand.DoLoadGame;
+        //        //case 3:
+        //        //    return MoveCommand.DoTeleportRoom;
+        //        case 4:
+        //            return MoveCommand.DoChangeMap;
+        //        default:
+        //            return null;
+        //    }
+        //}
 
         private bool DoCommand(string key, object[] param, IReadOnlyList<Command> commList)
         {
